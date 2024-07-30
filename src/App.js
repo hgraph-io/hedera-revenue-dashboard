@@ -16,7 +16,7 @@ function App() {
         <Deposits />
       </main>
       <footer>
-        <p>Built by Hygraph</p>
+        <p>Built by Hgraph</p>
       </footer>
     </div>
   );
