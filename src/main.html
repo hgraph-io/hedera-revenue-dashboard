@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Layout</title>
+    <title>Hedera Revenue Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600:700:800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Header</h1>
+        <div class="header-wrapper">
+          <div class="header-title hgraph"><h1>Hgraph</h1></div>
+          <div class="header-title subtitle"><h2>Hedera Revenue Dashboard</h2></div>
+        </div>
     </header>
+    <div id="content">
     <main class="dashboard">
         <section class="section left income">
             <h3 class="table-title">Income</h3>
@@ -38,7 +43,7 @@
         </section>
         <section class="section middle number">
             <div class="stats">
-                <div class="date">DECEMBERR 17 2024</div>
+                <div class="date">December 17 2024</div>
                 <div class="dropdown-container">
                     <select class="dropdown">
                         <option value="option1">Last hour</option>
@@ -50,9 +55,13 @@
                         <option value="option4">All time</option>
                     </select>
                 </div>
-                <div class="value">1,307,261ℏ</div>
+                <div class="value"><span class="h">1,307,261 </span>ℏ</div>
                 <div class="usd">$627,801 USD</div>
-                <div class="percentage">1.26%</div>
+                <div class="controls">
+                    <div class="refresh"><span class="refresh-button"></span></div>
+                    <div class="percentage">1.26% ↑</div>
+                    <div class="filter"><span class="filter-button"></span></div>
+                </div>
             </div>
         </section>
         <section class="section right deposits">
@@ -81,8 +90,11 @@
                   </div>
         </section>
     </main>
+    </div>
     <footer>
-        <p>Footer</p>
+    <div class="credits"> 
+      <p>Backend: <a href="https://x.com/tyler_hgraph" target="_blank">@tyler_hgraph</a><br/>Frontend: <a href="https://x.com/tyler_hgraph" target="_blank">@itsbrandond</a></p>
+    </div> 
     </footer>
 </body>
 </html>
