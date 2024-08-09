@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Settings | Hgraph's Hedera Revenue Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600:700:800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-wrapper">
+          <div class="header-title hgraph"><h1>Hgraph</h1></div>
+          <div class="header-title subtitle"><h2>Hedera Revenue Dashboard</h2></div>
+        </div>
+    </header>
+    <div id="content">
+    <main class="dashboard">
+        <section class="section left filter-out">
+            <h3 class="section-title">Filter out</h3>
+            <p class="section-body">Enter network entities that you'd like to remove from revenue calculations.</p>
+        </section>
+        <section class="section middle filter">
+            <div class="stats">
+                <div class="middle-section-title">Filter settings</div>
+                <div class="switch-container">
+                  <span class="label-left">Filter Out</span>
+                  <label class="switch">
+                      <input type="checkbox">
+                      <span class="slider"></span>
+                  </label>
+                  <span class="label-right">Only Show</span>
+              </div>
+                <input type="text" class="filter-textbox" placeholder="Enter text here...">
+                <div class="controls filter-controls">
+                    <div class="controls-left close">Close</div>
+                    <div class="controls-middle clear">Clear</div>
+                    <div class="controls-right save">Save</div>
+                </div>
+            </div>
+        </section>
+        <section class="section right only-show">
+                <h3 class="section-title">Only show</h3>
+                <p class="section-body">Only show these entities in network calculations. Entities can be accounts, contracts, topics and more.</p>
+        </section>
+    </main>
+    </div>
+    <footer>
+    <div class="credits"> 
+      <p>Backend: <a href="https://x.com/tyler_hgraph" target="_blank">@tyler_hgraph</a><br/>Frontend: <a href="https://x.com/tyler_hgraph" target="_blank">@itsbrandond</a></p>
+    </div> 
+    </footer>
+</body>
+</html>
