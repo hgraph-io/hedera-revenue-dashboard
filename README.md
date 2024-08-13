@@ -29,6 +29,12 @@ For the purposes of assisting with data efforts.
 
 **Note:** "Concil" was removed as these could add to much complexity
 
+# Notes on Filtering screen
+
+- The toggle is a checkbox
+- `checked` means to "only show" and `unchecked` means to filter out
+- We should validate that the entities entered are formatted properly (comma spaced, and show an error message if not)
+- Maybe set a maximum of 10?
 
 # Managing the repository
 
