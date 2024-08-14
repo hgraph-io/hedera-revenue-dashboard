@@ -7,7 +7,7 @@ async function main() {
   console.log(data)
   const totalHbar = data.total_transaction_fees.aggregate.sum.total / 1e8
 
-  document.getElementById('total-revenue').innerText = totalHbar.toLocaleString('en-us')
+  document.getElementById('total-hbar').innerText = totalHbar.toLocaleString('en-us')
   console.log(totalHbar)
 }
 
