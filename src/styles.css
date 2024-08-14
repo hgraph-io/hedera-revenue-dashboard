@@ -247,7 +247,7 @@ footer a {
     font-size: 40px;
     margin: 60px auto 10px auto;
 }
-.value .h {
+.value .hbar {
     font-weight: 700;
 }
 .usd {
@@ -281,7 +281,7 @@ footer a {
   }
   .percentage {
     color: #00FF9D;
-    font-size: 14px;
+    font-size: 16px;
     }
 
   .controls-right {

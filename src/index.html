@@ -6,6 +6,7 @@
     <title>Hgraph's Hedera Revenue Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600:700:800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js"></script>
 </head>
 <body>
     <header>
@@ -43,7 +44,14 @@
         </section>
         <section class="section middle number">
             <div class="stats">
-                <div class="middle-section-title">December 17 2024</div>
+                <div class="middle-section-title">    <script>
+                  function displayDate() {
+                      const currentDate = new Date();
+                      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                      const formattedDate = currentDate.toLocaleDateString('en-US', options).replace(',', '');
+                      document.getElementById('date').innerText = formattedDate;
+                  }
+              </script><span id="date"></span></div>
                 <div class="dropdown-container">
                     <select class="dropdown">
                         <option value="option1">Last hour</option>
@@ -55,8 +63,8 @@
                         <option value="option4">All time</option>
                     </select>
                 </div>
-                <div class="value"><span class="h">1,307,261 </span>ℏ</div>
-                <div class="usd">$627,801 USD</div>
+                <div class="value"><span class="hbar" id="total-hbar">601000</span></div>
+                <div class="usd"><span id="usd-convert">Loading...</span></div>
                 <div class="controls">
                     <div class="controls-left refresh"><span class="refresh-button"></span></div>
                     <div class="controls-middle percentage">1.26% ↑</div>
