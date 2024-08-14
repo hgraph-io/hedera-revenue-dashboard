@@ -44,14 +44,7 @@
         </section>
         <section class="section middle number">
             <div class="stats">
-                <div class="middle-section-title">    <script>
-                  function displayDate() {
-                      const currentDate = new Date();
-                      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                      const formattedDate = currentDate.toLocaleDateString('en-US', options).replace(',', '');
-                      document.getElementById('date').innerText = formattedDate;
-                  }
-              </script><span id="date"></span></div>
+                <div class="middle-section-title"><span id="date"></span></div>
                 <div class="dropdown-container">
                     <select class="dropdown">
                         <option value="option1">Last hour</option>
@@ -63,7 +56,7 @@
                         <option value="option4">All time</option>
                     </select>
                 </div>
-                <div class="value"><span class="hbar" id="total-hbar">601000</span></div>
+                <div class="value"><span class="hbar" id="total-hbar">601000</span> ℏ</div>
                 <div class="usd"><span id="usd-convert">Loading...</span></div>
                 <div class="controls">
                     <div class="controls-left refresh"><span class="refresh-button"></span></div>
