@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     displayDate();
     updateUSDConversion();
-    setInterval(updateUSDConversion, 10000); // Update the conversion every 10 seconds
+   // setInterval(updateUSDConversion, 10000); // Update the conversion every 10 seconds
 });
 
 function displayDate() {
