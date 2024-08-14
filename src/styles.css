@@ -58,7 +58,7 @@ header {
     display: flex;
     flex-direction: column;
     height: calc(100vh - 340px);
-    min-height: 420px;
+    min-height: 620px;
     justify-content: center;
     align-items: center;
 }
@@ -385,18 +385,18 @@ footer a {
 
 .label-left, .label-right {
     margin: 0 10px;
-    font-size: 14px;
+    font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    font-weight: 500;
+    font-weight: 400;
     color: rgba(255,255,255,0.6);
 }
 
 .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 40px;
+    height: 24px;
 }
 
 .switch input {
@@ -420,8 +420,8 @@ footer a {
 .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
+    height: 16px;
+    width: 16px;
     left: 4px;
     bottom: 4px;
     background-color: white;
@@ -430,9 +430,9 @@ footer a {
 }
 
 input:checked + .slider {
-    background-color: rgba(255,255,255,0.2);
+    background-color: #6e45bf;
 }
 
 input:checked + .slider:before {
-    transform: translateX(26px);
+    transform: translateX(15px);
 }
