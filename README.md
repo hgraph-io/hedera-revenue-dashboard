@@ -36,6 +36,55 @@ For the purposes of assisting with data efforts.
 - We should validate that the entities entered are formatted properly (comma spaced, and show an error message if not)
 - Maybe set a maximum of 10?
 
+
+# Instructions to Run the Hedera Revenue Dashboard Website in VS Code
+
+To run the Hedera Revenue Dashboard website using Visual Studio Code (VS Code), follow these steps:
+
+### Prerequisites:
+1. **Visual Studio Code**: Make sure you have VS Code installed. You can download it from [here](https://code.visualstudio.com/).
+2. **Node.js**: Install Node.js and npm (Node Package Manager) if you haven't already. You can download it from [here](https://nodejs.org/).
+
+### Steps to Run the Website:
+
+1. **Clone the Repository**:
+   - Open a terminal in VS Code by pressing `Ctrl + ` (backtick) or go to `View > Terminal`.
+   - Run the following command to clone the repository:
+     ```bash
+     git clone https://github.com/hgraph-io/hedera-revenue-dashboard.git
+     ```
+   - Navigate into the project directory:
+     ```bash
+     cd hedera-revenue-dashboard
+     ```
+
+2. **Run the Website Using `npx serve`**:
+   - If the project is a static site and you just want to serve the `src` directory, you can use the following command:
+     ```bash
+     npx serve src
+     ```
+   - This command uses `npx` to run the `serve` package, which serves the `src` directory as a static website.
+   - Once the server is running, open your browser and go to the URL provided (usually [http://localhost:5000](http://localhost:5000)) to view the website.
+
+3. **Alternative Method: Using the Live Server Extension**:
+   - If you prefer to use the `Live Server` extension for serving static websites, follow these steps:
+     1. Install the `Live Server` extension from the VS Code marketplace.
+     2. Open the `hedera-revenue-dashboard` project folder in VS Code.
+     3. Navigate to the `src` directory in the Explorer pane.
+     4. Right-click on the `index.html` file and select `Open with Live Server`.
+   - This will launch the website in your default browser, and any changes you make to the code will automatically refresh in the browser.
+
+4. **Editing the Code**:
+   - You can now edit the website's code in the `src` directory using VS Code.
+   - Both `npx serve` and the `Live Server` extension will automatically reload the website whenever you save changes to the files.
+
+### Optional: Building the Website for Production
+- If you need to build the website for production, use the following command:
+  ```bash
+  npm run build
+  ```
+- This will create an optimized production build in the `build` directory, which you can deploy to your preferred web hosting service.
+
 # Managing the repository
 
 *Notes by Brandon*
