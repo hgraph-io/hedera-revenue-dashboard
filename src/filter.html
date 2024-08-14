@@ -17,8 +17,8 @@
     <div id="content">
     <main class="dashboard">
         <section class="section left filter-out">
-            <h3 class="section-title">Filter out</h3>
-            <p class="section-body">Enter network entities that you'd like to remove from revenue calculations.</p>
+            <h3 class="section-title">Filter Entities</h3>
+            <p class="section-body">Enter network entities (accounts, topics, contracts) separated by commas. Example: 0.0.1234, 0.0.5678...</p>
         </section>
         <section class="section middle filter">
             <div class="stats">
@@ -31,8 +31,8 @@
                   </label>
                   <span class="label-right">Only Show</span>
               </div>
-                <input type="text" class="filter-textbox" placeholder="Enter text here...">
-                <div class="controls filter-controls">
+              <textarea class="filter-textbox" placeholder="0.0.1234, 0.0.56789, 0.0.765432..."></textarea>
+              <div class="controls filter-controls">
                     <div class="controls-left close">Close</div>
                     <div class="controls-middle clear">Clear</div>
                     <div class="controls-right save">Save</div>
@@ -40,8 +40,8 @@
             </div>
         </section>
         <section class="section right only-show">
-                <h3 class="section-title">Only show</h3>
-                <p class="section-body">Only show these entities in network calculations. Entities can be accounts, contracts, topics and more.</p>
+                <h3 class="section-title">Filter Settings</h3>
+                <p class="section-body">You can hoose to "filter out" or "only show" revenue stats for certain Hedera network entities. Enter 10 maximum.</p>
         </section>
     </main>
     </div>
