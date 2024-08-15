@@ -1,7 +1,6 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     displayDate();
-    updateUSDConversion();
-   // setInterval(updateUSDConversion, 10000); // Update the conversion every 10 seconds
+    initHbarUsdConversion();
 });
 
 function displayDate() {
@@ -11,28 +10,58 @@ function displayDate() {
     document.getElementById('date').innerText = formattedDate;
 }
 
-// Function to fetch the current HBAR to USD conversion rate
-async function fetchHBARConversionRate() {
-    try {
-        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=hedera-hashgraph&vs_currencies=usd');
-        const data = await response.json();
-        console.log(data); // Log the response data
-        return data['hedera-hashgraph'].usd;
-    } catch (error) {
-        console.error('Error fetching HBAR conversion rate:', error);
-        return null;
+// Function to initialize the HBAR to USD conversion
+function initHbarUsdConversion() {
+    const hbarElement = document.getElementById("total-hbar");
+    const usdConvertElement = document.getElementById("usd-convert");
+
+    // Function to fetch the current HBAR to USD conversion rate
+    async function fetchHbarToUsdRate() {
+        try {
+            const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=hedera-hashgraph&vs_currencies=usd");
+            const data = await response.json();
+            return data['hedera-hashgraph'].usd;
+        } catch (error) {
+            console.error("Error fetching HBAR to USD conversion rate:", error);
+            return null;
+        }
     }
-}
 
-// Function to update the USD conversion on the page
-async function updateUSDConversion() {
-    const totalHBAR = document.getElementById('total-hbar').textContent;
-    const conversionRate = await fetchHBARConversionRate();
+    // Function to format numbers with commas
+    function formatNumber(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
-    if (conversionRate !== null) {
-        const totalUSD = (totalHBAR * conversionRate).toFixed(2);
-        document.getElementById('usd-convert').textContent = `$${totalUSD} USD`;
-    } else {
-        document.getElementById('usd-convert').textContent = 'Error loading conversion rate';
+    // Function to update the USD conversion
+    async function updateUsdConversion() {
+        const hbarTotalText = hbarElement.textContent;
+        const hbarTotal = parseFloat(hbarTotalText.replace(/,/g, ''));
+
+        if (isNaN(hbarTotal)) {
+            console.error("Invalid HBAR total:", hbarTotalText);
+            return;
+        }
+
+        const usdRate = await fetchHbarToUsdRate();
+        if (usdRate !== null) {
+            const totalUsd = hbarTotal * usdRate;
+            usdConvertElement.textContent = `$${formatNumber(totalUsd.toFixed(2))}`;
+        }
+    }
+
+    // MutationObserver to watch for changes in #total-hbar
+    const observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+            if (mutation.type === "childList") {
+                updateUsdConversion();
+            }
+        });
+    });
+
+    observer.observe(hbarElement, { childList: true });
+
+    // Initial call to set the USD value if the HBAR value is already present
+    if (hbarElement.textContent !== "Loading...") {
+        updateUsdConversion();
     }
 }
