@@ -3,6 +3,21 @@ document.addEventListener('DOMContentLoaded', function () {
   initHbarUsdConversion()
 })
 
+/*
+ * When filter button is toggled, update the total HBAR value displayed to include or exclude ATMA fees
+ */
+document.querySelector('#atma-filter').onchange = function (e) {
+  document.getElementById('total-hbar').innerText = e.target.checked
+    ? (
+        (window.hgraph.TransactionFees.total_transaction_fees.aggregate.sum.total -
+          window.hgraph.TransactionFees.atma_transaction_fees.aggregate.sum.total) /
+        1e8
+      ).toLocaleString('en-us')
+    : (
+        window.hgraph.TransactionFees.total_transaction_fees.aggregate.sum.total / 1e8
+      ).toLocaleString('en-us')
+}
+
 function displayDate() {
   const currentDate = new Date()
   const options = {year: 'numeric', month: 'long', day: 'numeric'}
