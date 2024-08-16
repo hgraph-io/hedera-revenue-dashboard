@@ -12,6 +12,7 @@ function setStatsUI() {
   const currentValue = fees[fees.selectedPeriod][fees.filter ? 'not_atma' : 'all']
   const previousValue = fees[fees.selectedPeriod].last[fees.filter ? 'not_atma' : 'all']
   const change = (currentValue / previousValue - 1) * 100
+  console.log(change)
   // set initial value
   hbarElement.innerText = currentValue.toLocaleString()
   changeElement.innerText = !change
@@ -60,13 +61,17 @@ function fetchStats() {
   //     not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
   //   }
   // })
-  // // Year
-  // hgraph.query(hgraph.YearTransactionFees, {startDate: 0, endDate: 0}).then((data) => {
-  //   fees.year = {
-  //     all: data.all.aggregate.sum.total / 1e8,
-  //     not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
-  //   }
-  // })
+  // Year
+  hgraph.query(hgraph.YearTransactionFees).then((data) => {
+    fees.year = {
+      all: data.all.aggregate.sum.total / 1e8,
+      not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
+      last: {
+        all: data.last_all.aggregate.sum.total / 1e8,
+        not_atma: (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8,
+      },
+    }
+  })
   // All Time
   hgraph.query(hgraph.AllTimeTransactionFees).then((data) => {
     fees.all = {
