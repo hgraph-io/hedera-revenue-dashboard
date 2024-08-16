@@ -56,6 +56,8 @@ header {
 #content {
     flex: 1;
     display: flex;
+    margin-left: 16px;
+    margin-right: 16px;
     flex-direction: column;
     height: calc(100vh - 340px);
     min-height: 620px;
@@ -437,4 +439,10 @@ input:checked + .slider {
 
 input:checked + .slider:before {
     transform: translateX(15px);
+}
+
+/* INFO */
+
+.info-body {
+    border: 1px solid white;
 }
