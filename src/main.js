@@ -41,19 +41,29 @@ function fetchStats() {
   //   }
   // })
   // // Week
-  // hgraph.query(hgraph.WeekTransactionFees, {startDate: 0, endDate: 0}).then((data) => {
-  //   fees.week = {
-  //     all: data.all.aggregate.sum.total / 1e8,
-  //     not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
-  //   }
-  // })
-  // // Month
-  // hgraph.query(hgraph.MonthTransactionFees, {startDate: 0, endDate: 0}).then((data) => {
-  //   fees.month = {
-  //     all: data.all.aggregate.sum.total / 1e8,
-  //     not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
-  //   }
-  // })
+  hgraph.query(hgraph.WeekTransactionFees).then((data) => {
+    fees.week = {
+      all: data.all.aggregate.sum.total / 1e8,
+      not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
+      last: {
+        all: data.last_all.aggregate.sum.total / 1e8,
+        not_atma:
+          (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8,
+      },
+    }
+  })
+  // Month
+  hgraph.query(hgraph.MonthTransactionFees).then((data) => {
+    fees.month = {
+      all: data.all.aggregate.sum.total / 1e8,
+      not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
+      last: {
+        all: data.last_all.aggregate.sum.total / 1e8,
+        not_atma:
+          (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8,
+      },
+    }
+  })
   // // Quarter
   // hgraph.query(hgraph.QuarterTransactionFees, {startDate: 0, endDate: 0}).then((data) => {
   //   fees.quarter = {
@@ -68,7 +78,8 @@ function fetchStats() {
       not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
       last: {
         all: data.last_all.aggregate.sum.total / 1e8,
-        not_atma: (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8,
+        not_atma:
+          (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8,
       },
     }
   })

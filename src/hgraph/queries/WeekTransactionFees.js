@@ -1,35 +1,48 @@
+const date = new Date()
+const startDate = new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+const previousStartDate = new Date(date.getTime() - 14 * 24 * 60 * 60 * 1000)
+  .toISOString()
+  .split('T')[0]
+
 export default `
-query WeekTransactionFees {
-  hour_all: ecosystem_metric(
-    where: {name: {_eq: "transaction_fees"}, period: {_eq: "hour"}}
-    limit: 1
-    order_by: {end_date: desc}
-    offset: 1
+query WeekTransactionFees(
+	$startDate: timestamp = "${startDate}",
+	$previousStartDate: timestamp = "${previousStartDate}"
+	) {
+  all: ecosystem_metric_aggregate(
+    where: {name: {_eq: "transaction_fees"}, period: {_eq: "hour"}, start_date: {_gte: $startDate}}
   ) {
-    total
+    aggregate {
+      sum {
+        total
+      }
+    }
   }
-  hour_atma: ecosystem_metric(
-    where: {name: {_eq: "atma_transaction_fees"}, period: {_eq: "hour"}}
-    limit: 1
-    order_by: {end_date: desc}
-    offset: 1
+  atma: ecosystem_metric_aggregate(
+    where: {name: {_eq: "atma_transaction_fees"}, period: {_eq: "hour"}, start_date: {_gte: $startDate}}
   ) {
-    total
+    aggregate {
+      sum {
+        total
+      }
+    }
   }
-  last_hour_all: ecosystem_metric(
-    where: {name: {_eq: "transaction_fees"}, period: {_eq: "hour"}}
-    limit: 1
-    order_by: {end_date: desc}
-    offset: 2
+  last_all: ecosystem_metric_aggregate(
+    where: {name: {_eq: "transaction_fees"}, period: {_eq: "hour"}, start_date: {_gte: $previousStartDate}, end_date: {_lt: $startDate}}
   ) {
-    total
+    aggregate {
+      sum {
+        total
+      }
+    }
   }
-  last_hour_atma: ecosystem_metric(
-    where: {name: {_eq: "atma_transaction_fees"}, period: {_eq: "hour"}}
-    limit: 1
-    order_by: {end_date: desc}
-    offset: 2
+  last_atma: ecosystem_metric_aggregate(
+    where: {name: {_eq: "atma_transaction_fees"}, period: {_eq: "hour"}, start_date: {_gte: $previousStartDate}, end_date: {_lt: $startDate}}
   ) {
-    total
+    aggregate {
+      sum {
+        total
+      }
+    }
   }
 }`
