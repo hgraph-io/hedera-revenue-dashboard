@@ -3,20 +3,20 @@ document.addEventListener('DOMContentLoaded', function () {
   initHbarUsdConversion()
 })
 
-/*
- * When filter button is toggled, update the total HBAR value displayed to include or exclude ATMA fees
- */
-document.querySelector('#atma-filter').onchange = function (e) {
-  document.getElementById('total-hbar').innerText = e.target.checked
-    ? (
-        (window.hgraph.TransactionFees.total_transaction_fees.aggregate.sum.total -
-          window.hgraph.TransactionFees.atma_transaction_fees.aggregate.sum.total) /
-        1e8
-      ).toLocaleString('en-us')
-    : (
-        window.hgraph.TransactionFees.total_transaction_fees.aggregate.sum.total / 1e8
-      ).toLocaleString('en-us')
-}
+// /*
+//  * When filter button is toggled, update the total HBAR value displayed to include or exclude ATMA fees
+//  */
+// document.querySelector('#atma-filter').onchange = function (e) {
+//   document.getElementById('total-hbar').innerText = e.target.checked
+//     ? (window.hgraph.hour.all - window.hgraph.hour.atma).toLocaleString('en-us')
+//     : window.hgraph.hour.atma.toLocaleString('en-us').toLocaleString('en-us')
+// }
+// /*
+//  * Period dropdown
+//  */
+// document.querySelector('#timeframe').onchange = function (e) {
+//   alert(e.target.value)
+// }
 
 function displayDate() {
   const currentDate = new Date()
