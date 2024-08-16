@@ -6,6 +6,38 @@
     <title>Hgraph's Hedera Revenue Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600:700:800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <!--<script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Hgraph's Hedera Revenue Dashboard",
+        "url": "https://hederarevenue.com/",
+        "description": "Hgraph's Hedera Revenue Dashboard provides insights, data analytics, and real-time statistics for the Hedera network.",
+        "keywords": "Hedera, HBAR, Revenue, Blockchain, Cryptocurrency, Analytics, Data, Conversion, Statistics",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Hedera Revenue",
+          "url": "https://hederarevenue.com",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://hederarevenue.com/logo.png",
+            "width": 600,
+            "height": 60
+          },
+          "sameAs": [
+            "https://twitter.com/hgraph_io",
+            "https://www.linkedin.com/company/hgraph_io"
+          ]
+        },
+        "inLanguage": "en",
+        "mainEntity": {
+          "@type": "Organization",
+          "name": "Hgraph",
+          "url": "https://hgraph.com"
+        }
+      }
+      </script>-->
+      
 </head>
 <body>
     <header>
@@ -45,14 +77,14 @@
             <div class="stats">
                 <div class="middle-section-title"><span id="date"></span></div>
                 <div class="dropdown-container">
-                    <select class="dropdown">
-                        <option value="option1">Last hour</option>
-                        <option value="option1">Last 24hrs</option>
-                        <option value="option2">Last week</option>
-                        <option value="option3">Last month</option>
-                        <option value="option4">Last quarter</option>
-                        <option value="option4">Last year</option>
-                        <option value="option4">All time</option>
+                    <select class="dropdown" id="timeframe">
+                        <option value="hour">Last hour</option>
+                        <option value="24hrs">Last 24hrs</option>
+                        <option value="week">Last week</option>
+                        <option value="month">Last month</option>
+                        <option value="quarter">Last quarter</option>
+                        <option value="year">Last year</option>
+                        <option value="all">All time</option>
                     </select>
                 </div>
                 <div class="value"><span class="hbar" id="total-hbar">Loading...</span> ℏ</div>
