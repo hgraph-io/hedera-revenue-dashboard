@@ -27,15 +27,6 @@ For the purposes of assisting with data efforts.
 - Time period selection: 1hr, 24hrs, week, month, quarter, year, all time
 - Entity filters: the user can enter up to X entities to filter
 
-**Note:** "Concil" was removed as these could add to much complexity
-
-# Notes on Filtering screen
-
-- The toggle is a checkbox
-- `checked` means to "only show" and `unchecked` means to filter out
-- We should validate that the entities entered are formatted properly (comma spaced, and show an error message if not)
-- Maybe set a maximum of 10?
-
 
 # Instructions to Run the Hedera Revenue Dashboard Website in VS Code
 
@@ -85,27 +76,5 @@ To run the Hedera Revenue Dashboard website using Visual Studio Code (VS Code), 
   ```
 - This will create an optimized production build in the `build` directory, which you can deploy to your preferred web hosting service.
 
-# Managing the repository
-
-## Developing
+### Developing
 To run prettier on html and js files run: `npx prettier 'src/**/*.(html|js)' --write --config .prettierrc`
-
-*Notes by Brandon*
-
-**Moving stuff into the repo using VS Code:**
-1. Go to source control tab
-2. Stage files for changes
-3. Click the 3 dots menu and make a branch
-4. Verify the branch in bottom left of VS Code
-5. Make message and commit to the branch
-6. Look at incoming/outgoing under commit button
-7. Push into the branch via PR (3 dots menu)
-8. Let git hub create the branch if not made
-9. Fill out PR
-10. Request approval
-11. When merging: switch email address to Hgraph
-
-**To move stuff from the repo:**
-1. Switch back to main branch (little dialog at bottom left)
-2. Do a pull from the main branch
-3. Get back to work
