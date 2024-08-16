@@ -87,6 +87,9 @@ To run the Hedera Revenue Dashboard website using Visual Studio Code (VS Code), 
 
 # Managing the repository
 
+## Developing
+To run prettier on html and js files run: `npx prettier 'src/**/*.(html|js)' --write --config .prettierrc`
+
 *Notes by Brandon*
 
 **Moving stuff into the repo using VS Code:**
