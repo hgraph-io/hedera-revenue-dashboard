@@ -2,10 +2,15 @@
  * For more robust client, see https://github.com/hgraph-io/sdk
  */
 
-import TransactionFees from './queries/TransactionFees.js'
+import HourTransactionFees from './queries/HourTransactionFees.js'
+import DayTransactionFees from './queries/DayTransactionFees.js'
+import WeekTransactionFees from './queries/WeekTransactionFees.js'
+import MonthTransactionFees from './queries/MonthTransactionFees.js'
+import QuarterTransactionFees from './queries/QuarterTransactionFees.js'
+import YearTransactionFees from './queries/YearTransactionFees.js'
+import AllTimeTransactionFees from './queries/AllTimeTransactionFees.js'
 
-async function query(query) {
-  console.log('query', query)
+async function query(query, variables) {
   const response = await fetch('https://mainnet.hedera.api.hgraph.dev/v1/graphql', {
     method: 'POST',
     headers: {
@@ -13,6 +18,7 @@ async function query(query) {
     },
     body: JSON.stringify({
       query,
+      variables,
     }),
   })
 
@@ -22,5 +28,11 @@ async function query(query) {
 
 export default {
   query,
-  TransactionFees,
+  HourTransactionFees,
+  DayTransactionFees,
+  WeekTransactionFees,
+  MonthTransactionFees,
+  QuarterTransactionFees,
+  YearTransactionFees,
+  AllTimeTransactionFees,
 }

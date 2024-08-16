@@ -1,55 +1,99 @@
 import hgraph from './hgraph/client.js'
 
 // global object to store the data
-var hg
+var fees = {
+  selectedPeriod: 'hour',
+  filter: false,
+}
 
-async function fetchStats() {
-  const data = await hgraph.query(hgraph.TransactionFees)
-  hg = {
-    selectedPeriod: 'hour',
-    hour: {
-      all: data.hour_all[0].total / 1e8,
-      not_atma: (data.hour_all[0].total - data.hour_atma[0].total) / 1e8,
-    },
-    day: {
-      atma: 0,
-      all: 0,
-    },
-    week: {
-      atma: 0,
-      all: 0,
-    },
-    month: {
-      atma: 0,
-      all: 0,
-    },
-    quarter: {
-      atma: 0,
-      all: 0,
-    },
-    year: {
-      atma: 0,
-      all: 0,
-    },
-    allTime: {
-      all: data.allTime_all.aggregate.sum.total / 1e8,
-      not_atma:
-        (data.allTime_all.aggregate.sum.total - data.allTime_atma.aggregate.sum.total) / 1e8,
-    },
-  }
-
+function setStatsUI() {
   const hbarElement = document.getElementById('total-hbar')
-
+  const changeElement = document.getElementById('change')
+  const currentValue = fees[fees.selectedPeriod][fees.filter ? 'not_atma' : 'all']
+  const previousValue = fees[fees.selectedPeriod].last[fees.filter ? 'not_atma' : 'all']
+  const change = (currentValue / previousValue - 1) * 100
+  console.log(change)
   // set initial value
-  hbarElement.innerText = hg.hour.all.toLocaleString('en-us')
-  // set event listener for state of selected period
-  document.getElementById('timeframe').onchange = function (e) {
-    hbarElement.innerText = hg[e.target.value].all.toLocaleString('en-us')
-  }
-  // set event listener for atma filter
-  document.getElementById('filter').onchange = function (e) {
-    hbarElement.innerText = hg[e.target.value].all.toLocaleString('en-us')
-  }
+  hbarElement.innerText = currentValue.toLocaleString()
+  changeElement.innerText = !change
+    ? ''
+    : `${change.toLocaleString()}% ${change >= 0 ? '↑' : '↓'}`
+}
+
+function fetchStats() {
+  // Hour
+  hgraph.query(hgraph.HourTransactionFees).then((data) => {
+    fees.hour = {
+      all: data.all[0].total / 1e8,
+      not_atma: (data.all[0].total - data.atma[0].total) / 1e8,
+      last: {
+        all: data.last_all[0].total / 1e8,
+        not_atma: (data.last_all[0].total - data.last_atma[0].total) / 1e8,
+      },
+    }
+    setStatsUI()
+  })
+  // // Day
+  // hgraph.query(hgraph.DayTransactionFees).then((data) => {
+  //   fees.day = {
+  //     all: data.all.aggregate.sum.total / 1e8,
+  //     not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
+  //   }
+  // })
+  // // Week
+  // hgraph.query(hgraph.WeekTransactionFees, {startDate: 0, endDate: 0}).then((data) => {
+  //   fees.week = {
+  //     all: data.all.aggregate.sum.total / 1e8,
+  //     not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
+  //   }
+  // })
+  // // Month
+  // hgraph.query(hgraph.MonthTransactionFees, {startDate: 0, endDate: 0}).then((data) => {
+  //   fees.month = {
+  //     all: data.all.aggregate.sum.total / 1e8,
+  //     not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
+  //   }
+  // })
+  // // Quarter
+  // hgraph.query(hgraph.QuarterTransactionFees, {startDate: 0, endDate: 0}).then((data) => {
+  //   fees.quarter = {
+  //     all: data.all.aggregate.sum.total / 1e8,
+  //     not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
+  //   }
+  // })
+  // Year
+  hgraph.query(hgraph.YearTransactionFees).then((data) => {
+    fees.year = {
+      all: data.all.aggregate.sum.total / 1e8,
+      not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
+      last: {
+        all: data.last_all.aggregate.sum.total / 1e8,
+        not_atma: (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8,
+      },
+    }
+  })
+  // All Time
+  hgraph.query(hgraph.AllTimeTransactionFees).then((data) => {
+    fees.all = {
+      all: data.all.aggregate.sum.total / 1e8,
+      not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
+      last: {
+        all: data.all.aggregate.sum.total / 1e8,
+        not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
+      },
+    }
+  })
+}
+
+// set event listener for state of selected period
+document.getElementById('timeframe').onchange = function (e) {
+  fees.selectedPeriod = e.target.value
+  setStatsUI()
+}
+// set event listener for atma filter
+document.getElementById('filter').onchange = function (e) {
+  fees.filter = e.target.checked
+  setStatsUI()
 }
 
 fetchStats()
