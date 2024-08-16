@@ -30,8 +30,22 @@ function initHbarUsdConversion() {
   const hbarElement = document.getElementById('total-hbar')
   const usdConvertElement = document.getElementById('usd-convert')
 
-  // Function to fetch the current HBAR to USD conversion rate
   async function fetchHbarToUsdRate() {
+    const response = await fetch(
+      'https://mainnet-public.mirrornode.hedera.com/api/v1/network/exchangerate',
+      {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+        },
+      }
+    )
+    const json = await response.json()
+
+    return json.current_rate.cent_equivalent / json.current_rate.hbar_equivalent / 100
+  }
+  // Function to fetch the current HBAR to USD conversion rate
+  async function fetchHbarToUsdRateFromCoinGecko() {
     try {
       const response = await fetch(
         'https://api.coingecko.com/api/v3/simple/price?ids=hedera-hashgraph&vs_currencies=usd'
