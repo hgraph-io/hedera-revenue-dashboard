@@ -269,23 +269,14 @@ footer a {
     text-align: left;
     width: 80px;
   }
-
-  .refresh .refresh-button {
-    display: block;
-    width: 20px;
-    height: 20px;
-    background-image: url(assets/refresh.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-  .controls-middle {
-    text-align: center;
-    flex: 1;
-  }
-  .percentage {
+  .percentage.up {
     color: #00FF9D;
     font-size: 16px;
     }
+    .percentage.down {
+        color: #FF4F65;
+        font-size: 16px;
+        }
 
   .controls-right {
     text-align: right;
