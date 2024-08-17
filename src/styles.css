@@ -439,80 +439,106 @@ input:checked + .slider:before {
 
 /* INFO */
 
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+    margin-top: 20px;
+    .left, .right {
+        width: 48%;
+        box-sizing: border-box;
+    }
+    .right {
+        text-align: right;
+    }
+}
+
+
 .info-body {
-    border-top: 2px solid rgba(255,255,255,0.1);
+
     color: #ddd;
-    max-width: 800px;
+    max-width: 640px;
     margin: 0 auto;
-    padding-top: 20px;
+    line-height: 1.5; 
 
-h3 { text-decoration: underline; }
+h1 { 
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 8px;
+}
 
+h2 { 
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 8px;
+ }
 
-/* Paragraph Styles */
 p {
-    /* Styles for paragraphs */
+    font-size: 14px;
+    line-height: 1.8; 
 }
 
 /* Links */
 a {
-    /* Styles for links */
+   color: rgba(255,255,255,0.5); 
 }
 
 a:hover {
-    /* Styles for link hover state */
+    
 }
 
-/* Lists */
 ul, ol {
-    /* Styles for unordered and ordered lists */
+    font-size: 14px;
+    line-height: 1.8; 
 }
 
-li {
-    /* Styles for list items */
-}
 
-/* Code Blocks */
-pre, code {
-    /* Styles for code blocks and inline code */
-}
-
-/* Blockquotes */
-blockquote {
-    /* Styles for blockquotes */
-}
-
-/* Tables */
-table {
-    /* Styles for tables */
-}
-
-th, td {
-    /* Styles for table headers and table cells */
-}
-
-/* Images */
 img {
-    /* Styles for images */
+
 }
 
-/* Additional Styles */
-hr {
-    /* Styles for horizontal rules */
+/* Code Block Container */
+pre {
+    background-color: #444;
+    padding: 16px;     
+    border-radius: 4px;      
+    overflow-x: auto;        
+    font-size: 14px;  
+    line-height: 1.5;    
+    margin-bottom: 16px;      
 }
 
-/* Utility Classes */
-/* You can add custom utility classes as needed */
-.text-center {
-    /* Center text */
+/* Inline Code */
+code {
+    background-color: #444; 
+    padding: 2.5px 6px;          
+    border-radius: 4px;      
+    font-family: "Courier New", Courier, monospace; 
+    font-size: 14px;   
+    font-weight: bold;       
 }
 
-.mt-4 {
-    /* Margin top spacing */
+/* Code Text Color */
+pre code {
+    color: #fff; 
 }
 
-/* Add any additional custom styles below */
+/* Highlighted Code Syntax (optional) */
+pre code .keyword {
+    color: #d73a49; 
+}
 
+pre code .string {
+    color: #032f62; 
+}
+
+pre code .comment {
+    color: #6a737d; 
+}
 
 
 }
