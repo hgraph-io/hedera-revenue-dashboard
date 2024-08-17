@@ -12,7 +12,6 @@ function setStatsUI() {
   const currentValue = fees[fees.selectedPeriod][fees.filter ? 'not_atma' : 'all']
   const previousValue = fees[fees.selectedPeriod].last[fees.filter ? 'not_atma' : 'all']
   const change = (currentValue / previousValue - 1) * 100
-  console.log(change)
   // set initial value
   hbarElement.innerText = currentValue.toLocaleString()
   changeElement.innerText = !change
@@ -72,7 +71,6 @@ function fetchStats() {
   })
   // Quarter
   hgraph.query(hgraph.QuarterTransactionFees).then((data) => {
-    console.log(data)
     fees.quarter = {
       all: data.all.aggregate.sum.total / 1e8,
       not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
