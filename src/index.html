@@ -2,19 +2,21 @@
 <html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DFJB14V7Y3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DFJB14V7Y3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
 
-  gtag('config', 'G-DFJB14V7Y3', {
-    'anonymize_ip': true,
-    'allow_ad_personalization_signals': false,
-    'allow_google_signals': false,
-    'send_page_view': true
-  });
-</script>
+      gtag('config', 'G-DFJB14V7Y3', {
+        anonymize_ip: true,
+        allow_ad_personalization_signals: false,
+        allow_google_signals: false,
+        send_page_view: true,
+      })
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hgraph's Hedera Revenue Dashboard</title>
@@ -126,12 +128,12 @@
             <div class="row">
               <div class="cell">Nodes</div>
               <div class="cell">50%</div>
-              <div class="cell">402,908 ℏ</div>
+              <div id="node-deposits" class="cell"></div>
             </div>
             <div class="row">
               <div class="cell">Staking</div>
               <div class="cell">30%</div>
-              <div class="cell">178,032 ℏ</div>
+              <div id="staking-deposits" class="cell"></div>
             </div>
             <!--<div class="row">
                       <div class="cell">Council</div>
@@ -141,7 +143,7 @@
             <div class="row">
               <div class="cell">Treasury</div>
               <div class="cell">20%</div>
-              <div class="cell">23,540 ℏ</div>
+              <div id="treasury-deposits" class="cell"></div>
             </div>
           </div>
         </section>

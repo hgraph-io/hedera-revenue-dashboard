@@ -1,7 +1,5 @@
 const date = new Date()
-const startDate = new Date(date.setFullYear(date.getFullYear() - 1))
-  .toISOString()
-  .split('T')[0]
+const startDate = new Date(date.setFullYear(date.getFullYear() - 1)).toISOString().split('T')[0]
 const previousStartDate = new Date(date.setFullYear(date.getFullYear() - 2))
   .toISOString()
   .split('T')[0]
