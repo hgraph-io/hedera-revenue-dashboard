@@ -125,18 +125,6 @@ function fetchStats() {
       },
     }
   })
-
-  // Node deposits
-  hgraph.query(hgraph.Deposits).then((data) => {
-    fees.deposits = {
-      node: data.node.aggregate.sum.total / 1e8,
-      staking: data.staking.aggregate.sum.total / 1e8,
-      treasury: data.treasury.aggregate.sum.total / 1e8,
-    }
-    // deposits ui
-    const nodeDepositsElement = document.getElementById('node-deposits')
-    nodeDepositsElement.innerText = fees.deposits.node.toLocaleString() + ' ℏ'
-  })
 }
 
 // set event listener for state of selected period
