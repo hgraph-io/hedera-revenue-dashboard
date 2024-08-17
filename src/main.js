@@ -7,17 +7,38 @@ var fees = {
 }
 
 function setStatsUI() {
-  const hbarElement = document.getElementById('total-hbar')
-  const changeElement = document.getElementById('change')
-  const currentValue = fees[fees.selectedPeriod][fees.filter ? 'not_atma' : 'all']
-  const previousValue = fees[fees.selectedPeriod].last[fees.filter ? 'not_atma' : 'all']
-  const change = (currentValue / previousValue - 1) * 100
+  const hbarElement = document.getElementById('total-hbar');
+  const changeElement = document.getElementById('change');
+  const currentValue = fees[fees.selectedPeriod][fees.filter ? 'not_atma' : 'all'];
+  const previousValue = fees[fees.selectedPeriod].last[fees.filter ? 'not_atma' : 'all'];
+  const change = (currentValue / previousValue - 1) * 100;
+  
+  // Round the change to 1 decimal place
+  const roundedChange = change.toFixed(1);
+  
   // set initial value
-  hbarElement.innerText = currentValue.toLocaleString()
-  changeElement.innerText = !change
-    ? ''
-    : `${change.toLocaleString()}% ${change >= 0 ? '↑' : '↓'}`
+  hbarElement.innerText = currentValue.toLocaleString();
+  
+  // update change text
+  if (change) {
+    changeElement.innerText = `${roundedChange}% ${change >= 0 ? '↑' : '↓'}`;
+    
+    // remove existing classes
+    changeElement.classList.remove('up', 'down');
+    
+    // add the appropriate class
+    if (change >= 0) {
+      changeElement.classList.add('up');
+    } else {
+      changeElement.classList.add('down');
+    }
+  } else {
+    changeElement.innerText = '';
+    // remove any existing up or down classes if there's no change
+    changeElement.classList.remove('up', 'down');
+  }
 }
+
 
 function fetchStats() {
   // Hour

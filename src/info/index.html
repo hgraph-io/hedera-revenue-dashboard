@@ -1,14 +1,16 @@
 <!doctype html>
 <html lang="en">
   <head>
+    
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hgraph's Hedera Revenue Dashboard</title>
+    <title>About Hgraph's Hedera Revenue Dashboard</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600:700:800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/src/styles.css?v=1" />
+    <link rel="stylesheet" href="/src/styles.css?v=3" />
     <!--<script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -40,6 +42,7 @@
         }
       }
       </script>-->
+      <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <body>
     <header>
@@ -48,16 +51,18 @@
         <div class="header-title subtitle"><h2>Hedera Revenue Dashboard</h2></div>
       </div>
     </header>
-        <article class="info-body">
-            <header>
-                <h1>Title of the Article</h1>
-                <p>Posted on January 1, 2024 by Author Name</p>
-            </header>
-            <p>This is the main content of the article. It can include text, images, and other elements.</p>
-            <footer>
-                <p>Tags: HTML, Web Development</p>
-            </footer>
-        </article>
+    <div class="info-body">
+    <div class="container">
+      <div class="left">
+        <a href="/">← Back</a>
+    </div>
+    <div class="right">
+      <a href="/" target="_blank">View on Github →</a>
+    </div>
+  </div>
+    <div id="readme-content">
+  </div>
+</div>
     <footer>
       <div class="credits">
         <p>
@@ -66,5 +71,22 @@
         </p>
       </div>
     </footer>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const readmeUrl = 'https://raw.githubusercontent.com/hgraph-io/hedera-revenue-dashboard/main/README.md'; // Update with your GitHub repository URL
+
+    fetch(readmeUrl)
+        .then(response => response.text())
+        .then(markdown => {
+            const contentDiv = document.getElementById('readme-content');
+            contentDiv.innerHTML = marked.parse(markdown);
+        })
+        .catch(error => {
+            console.error('Error fetching the README.md:', error);
+        });
+});
+
+  </script>
+  
   </body>
 </html>

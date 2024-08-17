@@ -209,7 +209,7 @@ footer a {
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    font-weight: 600;
+    font-weight: 700;
     color: rgba(255,255,255,0.4);
     background: #0A0A0A;
     max-width: 190px;
@@ -224,38 +224,41 @@ footer a {
 }
 .dropdown-container {
     position: relative;
-    max-width: 160px;
+    max-width: 140px;
     margin: 0 auto;
 }
 .dropdown {
     margin-top: 20px;
     width: 100%;
     font-family: 'Poppins', sans-serif;
-    padding: 10px 0px 0px 0px;
+    padding: 10px 0px 4px 0px;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 18px;
     color: rgba(255,255,255,0.4);
     border: none;
-    border-bottom: 3px solid rgba(255,255,255,0.1);
+    border-bottom: 2px solid rgba(255,255,255,0.1);
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background: url('data:image/svg+xml,%3Csvg width="14px" height="10px" viewBox="0 0 10 4" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"%3E%3Cdefs%3E%3Cfilter x="-19.2%25" y="-21.3%25" width="138.5%25" height="140.3%25" filterUnits="objectBoundingBox" id="filter-k4mv3hiau3-1"%3E%3CfeOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"%3E%3C/feOffset%3E%3CfeGaussianBlur stdDeviation="25" in="shadowOffsetOuter1" result="shadowBlurOuter1"%3E%3C/feGaussianBlur%3E%3CfeColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.499346967 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"%3E%3C/feColorMatrix%3E%3CfeMerge%3E%3CfeMergeNode in="shadowMatrixOuter1"%3E%3C/feMergeNode%3E%3CfeMergeNode in="SourceGraphic"%3E%3C/feMergeNode%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Cg id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" opacity="0.4"%3E%3Cg id="rev" transform="translate(-379.5, -154.5)" stroke="%23FFFFFF" stroke-width="2"%3E%3Cg filter="url(%23filter-k4mv3hiau3-1)" transform="translate(118, 78)" id="TIME"%3E%3Cg transform="translate(127, 64)"%3E%3Cpath d="M135.5,13.5 L139.5,17.5 M143.5,13.5 L139.5,17.5" id="Combined-Shape"%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E') no-repeat right 10px center;
+    background: url('data:image/svg+xml,%3Csvg width="12px" height="10px" viewBox="0 0 10 4" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"%3E%3Cdefs%3E%3Cfilter x="-19.2%25" y="-21.3%25" width="138.5%25" height="140.3%25" filterUnits="objectBoundingBox" id="filter-k4mv3hiau3-1"%3E%3CfeOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"%3E%3C/feOffset%3E%3CfeGaussianBlur stdDeviation="25" in="shadowOffsetOuter1" result="shadowBlurOuter1"%3E%3C/feGaussianBlur%3E%3CfeColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.499346967 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"%3E%3C/feColorMatrix%3E%3CfeMerge%3E%3CfeMergeNode in="shadowMatrixOuter1"%3E%3C/feMergeNode%3E%3CfeMergeNode in="SourceGraphic"%3E%3C/feMergeNode%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Cg id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" opacity="0.4"%3E%3Cg id="rev" transform="translate(-379.5, -154.5)" stroke="%23FFFFFF" stroke-width="2"%3E%3Cg filter="url(%23filter-k4mv3hiau3-1)" transform="translate(118, 78)" id="TIME"%3E%3Cg transform="translate(127, 64)"%3E%3Cpath d="M135.5,13.5 L139.5,17.5 M143.5,13.5 L139.5,17.5" id="Combined-Shape"%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E') no-repeat right 2px center;
 }
 .dropdown:focus {
     outline: none;
 }
 .value {
     font-size: 30px;
-    margin: 60px auto 10px auto;
+    margin: 80px auto 10px auto;
 }
 .value .hbar {
     font-weight: 700;
+    
+
 }
 .usd {
-    font-size: 20px;
+    font-size: 18px;
     color: rgba(255,255,255,0.4);
-    margin-bottom: 60px;
+    margin-bottom: 80px;
+    font-weight: 500;
 }
 
 .controls {
@@ -269,23 +272,16 @@ footer a {
     text-align: left;
     width: 80px;
   }
-
-  .refresh .refresh-button {
-    display: block;
-    width: 20px;
-    height: 20px;
-    background-image: url(assets/refresh.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-  .controls-middle {
-    text-align: center;
-    flex: 1;
-  }
   .percentage {
-    color: #00FF9D;
     font-size: 16px;
+    font-weight: 500;
+  }
+  .percentage .up {
+    color: #00FF9D;
     }
+    .percentage .down {
+        color: #FF4F65;
+        }
 
   .controls-right {
     text-align: right;
@@ -443,6 +439,106 @@ input:checked + .slider:before {
 
 /* INFO */
 
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+    margin-top: 20px;
+    .left, .right {
+        width: 48%;
+        box-sizing: border-box;
+    }
+    .right {
+        text-align: right;
+    }
+}
+
+
 .info-body {
-    border: 1px solid white;
+
+    color: #ddd;
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.5; 
+
+h1 { 
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 8px;
+}
+
+h2 { 
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 8px;
+ }
+
+p {
+    font-size: 14px;
+    line-height: 1.8; 
+}
+
+/* Links */
+a {
+   color: rgba(255,255,255,0.5); 
+}
+
+a:hover {
+    
+}
+
+ul, ol {
+    font-size: 14px;
+    line-height: 1.8; 
+}
+
+
+img {
+
+}
+
+/* Code Block Container */
+pre {
+    background-color: #444;
+    padding: 16px;     
+    border-radius: 4px;      
+    overflow-x: auto;        
+    font-size: 14px;  
+    line-height: 1.5;    
+    margin-bottom: 16px;      
+}
+
+/* Inline Code */
+code {
+    background-color: #444; 
+    padding: 2.5px 6px;          
+    border-radius: 4px;      
+    font-family: "Courier New", Courier, monospace; 
+    font-size: 14px;   
+    font-weight: bold;       
+}
+
+/* Code Text Color */
+pre code {
+    color: #fff; 
+}
+
+/* Highlighted Code Syntax (optional) */
+pre code .keyword {
+    color: #d73a49; 
+}
+
+pre code .string {
+    color: #032f62; 
+}
+
+pre code .comment {
+    color: #6a737d; 
+}
+
+
 }
