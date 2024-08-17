@@ -12,7 +12,6 @@ function setStatsUI() {
   const currentValue = fees[fees.selectedPeriod][fees.filter ? 'not_atma' : 'all']
   const previousValue = fees[fees.selectedPeriod].last[fees.filter ? 'not_atma' : 'all']
   const change = (currentValue / previousValue - 1) * 100
-  console.log(change)
   // set initial value
   hbarElement.innerText = currentValue.toLocaleString()
   changeElement.innerText = !change
@@ -31,16 +30,22 @@ function fetchStats() {
         not_atma: (data.last_all[0].total - data.last_atma[0].total) / 1e8,
       },
     }
+    // Initialize first value
     setStatsUI()
   })
-  // // Day
-  // hgraph.query(hgraph.DayTransactionFees).then((data) => {
-  //   fees.day = {
-  //     all: data.all.aggregate.sum.total / 1e8,
-  //     not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
-  //   }
-  // })
-  // // Week
+  // Day
+  hgraph.query(hgraph.DayTransactionFees).then((data) => {
+    fees.day = {
+      all: data.all.aggregate.sum.total / 1e8,
+      not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
+      last: {
+        all: data.last_all.aggregate.sum.total / 1e8,
+        not_atma:
+          (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8,
+      },
+    }
+  })
+  // Week
   hgraph.query(hgraph.WeekTransactionFees).then((data) => {
     fees.week = {
       all: data.all.aggregate.sum.total / 1e8,
@@ -64,13 +69,18 @@ function fetchStats() {
       },
     }
   })
-  // // Quarter
-  // hgraph.query(hgraph.QuarterTransactionFees, {startDate: 0, endDate: 0}).then((data) => {
-  //   fees.quarter = {
-  //     all: data.all.aggregate.sum.total / 1e8,
-  //     not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
-  //   }
-  // })
+  // Quarter
+  hgraph.query(hgraph.QuarterTransactionFees).then((data) => {
+    fees.quarter = {
+      all: data.all.aggregate.sum.total / 1e8,
+      not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
+      last: {
+        all: data.last_all.aggregate.sum.total / 1e8,
+        not_atma:
+          (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8,
+      },
+    }
+  })
   // Year
   hgraph.query(hgraph.YearTransactionFees).then((data) => {
     fees.year = {
