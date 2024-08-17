@@ -440,13 +440,14 @@ input:checked + .slider:before {
 /* INFO */
 
 .info-body {
-    border: 1px solid white;
+    border-top: 2px solid rgba(255,255,255,0.1);
     color: #ddd;
+    max-width: 800px;
+    margin: 0 auto;
+    padding-top: 20px;
 
-/* Header Styles */
-h1, h2, h3, h4, h5, h6 {
-    
-}
+h3 { text-decoration: underline; }
+
 
 /* Paragraph Styles */
 p {
