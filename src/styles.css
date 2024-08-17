@@ -74,11 +74,40 @@ footer {
     justify-content: center;
     align-items: center; 
     font-size: 12px;
-    line-height: 1.8em;
+
+    .box-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 0 auto;
+        padding: 0px;
+        max-width: 1200px;
+    }
+    
+    .box {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        color: rgba(255,255,255,0.4);
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin: 10px;
+        flex: 1 1 45%;
+        box-sizing: border-box;
+        text-align: left;
+    }
+
+    @media (min-width: 768px) {
+        .box {
+            flex: 1 1 22%; 
+            margin: 10px 1%;
+        }
+    }
+    
 }
 footer a {
-    color: rgba(255,255,255,0.8);
-    text-decoration: none;
+    color: rgba(255,255,255,0.4);
+}
+footer a:hover {
+    color: rgba(255,255,255,0.6);
 }
 
 .dashboard {
@@ -444,8 +473,8 @@ input:checked + .slider:before {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    border-bottom: 2px solid rgba(255,255,255,0.1);
-    padding-bottom: 20px;
+    border-top: 2px solid rgba(255,255,255,0.1);
+    padding-top: 20px;
     margin-bottom: 40px;
     margin-top: 20px;
     .left, .right {
@@ -480,6 +509,7 @@ h2 {
 p {
     font-size: 14px;
     line-height: 1.8; 
+    
 }
 
 /* Links */
@@ -488,7 +518,7 @@ a {
 }
 
 a:hover {
-    
+    color: rgba(255,255,255,1); 
 }
 
 ul, ol {
@@ -496,12 +526,12 @@ ul, ol {
     line-height: 1.8; 
 }
 
-
 img {
-
+    width: 100%;
+    margin: 20px auto 0px auto;
+    border-radius: 8px;
 }
 
-/* Code Block Container */
 pre {
     background-color: #444;
     padding: 16px;     
@@ -512,7 +542,6 @@ pre {
     margin-bottom: 16px;      
 }
 
-/* Inline Code */
 code {
     background-color: #444; 
     padding: 2.5px 6px;          
@@ -522,12 +551,10 @@ code {
     font-weight: bold;       
 }
 
-/* Code Text Color */
 pre code {
     color: #fff; 
 }
 
-/* Highlighted Code Syntax (optional) */
 pre code .keyword {
     color: #d73a49; 
 }
