@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
   <head>
+    
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hgraph's Hedera Revenue Dashboard</title>
@@ -40,6 +42,7 @@
         }
       }
       </script>-->
+      <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <body>
     <header>
@@ -48,16 +51,9 @@
         <div class="header-title subtitle"><h2>Hedera Revenue Dashboard</h2></div>
       </div>
     </header>
-        <article class="info-body">
-            <header>
-                <h1>Title of the Article</h1>
-                <p>Posted on January 1, 2024 by Author Name</p>
-            </header>
-            <p>This is the main content of the article. It can include text, images, and other elements.</p>
-            <footer>
-                <p>Tags: HTML, Web Development</p>
-            </footer>
-        </article>
+    <div class="info-body" id="readme-content">
+      <!-- The README.md content will be rendered here -->
+  </div>
     <footer>
       <div class="credits">
         <p>
@@ -66,5 +62,22 @@
         </p>
       </div>
     </footer>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const readmeUrl = 'https://raw.githubusercontent.com/hgraph-io/hedera-revenue-dashboard/main/README.md'; // Update with your GitHub repository URL
+
+    fetch(readmeUrl)
+        .then(response => response.text())
+        .then(markdown => {
+            const contentDiv = document.getElementById('readme-content');
+            contentDiv.innerHTML = marked.parse(markdown);
+        })
+        .catch(error => {
+            console.error('Error fetching the README.md:', error);
+        });
+});
+
+  </script>
+  
   </body>
 </html>
