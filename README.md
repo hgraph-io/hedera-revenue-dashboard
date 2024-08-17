@@ -53,7 +53,7 @@ Hedera's revenue is calculated as follows:
   - HCS (Hedera Consensus Service)
   - Other (all other services, including HFS)
 
-![image](/info/hashscan.png)
+![image](src/info/hashscan.png)
 
 *Image above: An example from a transaction as viewed on HashScan ([link](https://hashscan.io/mainnet/transaction/1723915342.599510003))*
 
@@ -61,6 +61,7 @@ Hedera's revenue is calculated as follows:
 
 - The amount of revenue (in HBAR) shown is converted in real-time to USD.
 - The conversion rate is averaged over the time span selected by the user.
+- USD amounts do not factor into calculations. The displayed USD amount is strictly to provide context regarding network revenue for a given timeframe.
 
 #### Date dropdown
 
