@@ -473,8 +473,9 @@ input:checked + .slider:before {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    border-bottom: 2px solid rgba(255,255,255,0.1);
+    border-top: 2px solid rgba(255,255,255,0.1);
     padding-bottom: 20px;
+    padding-top: 20px;
     margin-bottom: 40px;
     margin-top: 20px;
     .left, .right {
