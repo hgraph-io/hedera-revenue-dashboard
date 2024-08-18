@@ -18,7 +18,6 @@ function updateUI() {
     const previousValue = state[state.selectedPeriod].last[state.filter ? 'not_atma' : 'all']
     const change = (currentValue / previousValue - 1) * 100
 
-
     // Round the change to 1 decimal place
     const roundedChange = change.toFixed(1)
 
@@ -66,15 +65,29 @@ function updateUI() {
     treasuryDepositsElement.previousElementSibling.innerText =
       ((state.deposits.treasury / totalDeposits) * 100).toFixed(1) + ' %'
   }
-  if (state.income?.hts && state.income?.hscs && state.income?.hcs && state.income?.other) {
+  // only load income data if it's available
+  if (
+    [
+      'hts',
+      'hscs',
+      'hcs',
+      'other',
+      'not_atma_hts',
+      'not_atma_hcs',
+      'not_atma_hscs',
+      'not_atma_other',
+    ].every((property) => state.income?.hasOwnProperty(property))
+  ) {
     const hts = document.getElementById('hts-income')
-    hts.innerText = state.income.hts.toLocaleString() + ' ℏ'
+    hts.innerText = state.income[state.filter ? 'not_atma_hts' : 'hts'].toLocaleString() + ' ℏ'
     const hscs = document.getElementById('hscs-income')
-    hscs.innerText = state.income.hscs.toLocaleString() + ' ℏ'
+    hscs.innerText =
+      state.income[state.filter ? 'not_atma_hscs' : 'hscs'].toLocaleString() + ' ℏ'
     const hcs = document.getElementById('hcs-income')
-    hcs.innerText = state.income.hcs.toLocaleString() + ' ℏ'
+    hcs.innerText = state.income[state.filter ? 'not_atma_hcs' : 'hcs'].toLocaleString() + ' ℏ'
     const other = document.getElementById('other-income')
-    other.innerText = state.income.other.toLocaleString() + ' ℏ'
+    other.innerText =
+      state.income[state.filter ? 'not_atma_other' : 'other'].toLocaleString() + ' ℏ'
   }
 }
 
@@ -161,6 +174,21 @@ function main() {
           data.hcs.aggregate.sum.total) /
           1e8
       ),
+    }
+    state.income = {
+      ...state.income,
+      not_atma_hts: state.income.hts - Math.floor(data.atma_hts.aggregate.sum.total / 1e8),
+      not_atma_hscs: state.income.hscs - Math.floor(data.atma_hscs.aggregate.sum.total / 1e8),
+      not_atma_hcs: state.income.hcs - Math.floor(data.atma_hcs.aggregate.sum.total / 1e8),
+      not_atma_other:
+        state.income.other -
+        Math.floor(
+          (data.atma_total.aggregate.sum.total -
+            data.atma_hts.aggregate.sum.total -
+            data.atma_hscs.aggregate.sum.total -
+            data.atma_hcs.aggregate.sum.total) /
+            1e8
+        ),
     }
     document.dispatchEvent(updateUIEvent)
   })
