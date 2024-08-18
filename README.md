@@ -165,7 +165,7 @@ This repository is Hgraph's submission for the 2024 [Hello Future Hackathon](htt
 
 - Submit an issue with your ideas
 
-Tip: To run prettier on html and js files run: `npx prettier 'src/**/*.(html|js)' --write --config .prettierrc`
+Tip: To run prettier on html and js files run: `npx prettier 'public/**/*.(html|js)' --write --config .prettierrc`
 
 ## Roadmap
 
