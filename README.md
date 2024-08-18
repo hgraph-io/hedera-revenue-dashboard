@@ -187,7 +187,6 @@ Tip: To run prettier on html and js files run: `npx prettier 'public/**/*.(html|
 - [Hedera mirror node](https://docs.hedera.com/hedera/core-concepts/mirror-nodes/hedera-mirror-node)
 - [Hgraph](https://github.com/hgraph-io/sdk)
 - [Flexstack](https://github.com/flexstack)
-- [CoinGecko](https://www.coingecko.com/en/api)
 - [Marked](https://github.com/markedjs/marked)
 
 ---
