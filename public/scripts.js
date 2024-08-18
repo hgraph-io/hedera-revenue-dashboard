@@ -30,6 +30,7 @@ function initHbarUsdConversion() {
   const hbarElement = document.getElementById('total-hbar')
   const usdConvertElement = document.getElementById('usd-convert')
 
+  // Function to fetch the current HBAR to USD conversion rate from Hedera Mirror Node
   async function fetchHbarToUsdRate() {
     const response = await fetch(
       'https://mainnet-public.mirrornode.hedera.com/api/v1/network/exchangerate',
@@ -43,19 +44,6 @@ function initHbarUsdConversion() {
     const json = await response.json()
 
     return json.current_rate.cent_equivalent / json.current_rate.hbar_equivalent / 100
-  }
-  // Function to fetch the current HBAR to USD conversion rate
-  async function fetchHbarToUsdRateFromCoinGecko() {
-    try {
-      const response = await fetch(
-        'https://api.coingecko.com/api/v3/simple/price?ids=hedera-hashgraph&vs_currencies=usd'
-      )
-      const data = await response.json()
-      return data['hedera-hashgraph'].usd
-    } catch (error) {
-      console.error('Error fetching HBAR to USD conversion rate:', error)
-      return null
-    }
   }
 
   // Function to format numbers with commas
