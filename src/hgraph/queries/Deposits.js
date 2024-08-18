@@ -1,3 +1,4 @@
+//
 export default `
 query Deposits {
   node: ecosystem_metric_aggregate(where: {name: {_like: "node_%_deposits"}}) {
