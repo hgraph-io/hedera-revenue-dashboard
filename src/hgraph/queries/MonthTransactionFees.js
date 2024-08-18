@@ -6,7 +6,6 @@ date.setDate(0)
 date.setDate(1)
 const previousStartDate = date.toISOString().split('T')[0]
 
-
 export default `
 query MonthTransactionFees(
 	$startDate: timestamp = "${startDate}",
