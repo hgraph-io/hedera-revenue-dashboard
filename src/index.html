@@ -2,19 +2,21 @@
 <html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DFJB14V7Y3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DFJB14V7Y3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
 
-  gtag('config', 'G-DFJB14V7Y3', {
-    'anonymize_ip': true,
-    'allow_ad_personalization_signals': false,
-    'allow_google_signals': false,
-    'send_page_view': true
-  });
-</script>
+      gtag('config', 'G-DFJB14V7Y3', {
+        anonymize_ip: true,
+        allow_ad_personalization_signals: false,
+        allow_google_signals: false,
+        send_page_view: true,
+      })
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hgraph's Hedera Revenue Dashboard</title>
@@ -95,7 +97,7 @@
             <div class="dropdown-container">
               <select class="dropdown" id="timeframe">
                 <option value="hour">Last hour</option>
-                <option value="24hrs">Last 24hrs</option>
+                <option value="day">Last 24hrs</option>
                 <option value="week">Last week</option>
                 <option value="month">Last month</option>
                 <option value="quarter">Last quarter</option>
@@ -124,18 +126,18 @@
           <div class="table">
             <div class="row">
               <div class="cell">Nodes</div>
-              <div class="cell"><span id="nodes-percent">50%</span></div>
-              <div class="cell"><span id="nodes-amount">402,908</span> ℏ</div>
+              <div class="cell">50%</div>
+              <div id="node-deposits" class="cell"></div>
             </div>
             <div class="row">
               <div class="cell">Staking</div>
-              <div class="cell"><span id="staking-percent">30%</span></div>
-              <div class="cell"><span id="staking-amount">178,032</span> ℏ</div>
+              <div class="cell">30%</div>
+              <div id="staking-deposits" class="cell"></div>
             </div>
             <div class="row">
               <div class="cell">Treasury</div>
-              <div class="cell"><span id="treasury-percent">20%</span></div>
-              <div class="cell"><span id="treasury-amount">23,540</span> ℏ</div>
+              <div class="cell">20%</div>
+              <div id="treasury-deposits" class="cell"></div>
             </div>
           </div>
         </section>
