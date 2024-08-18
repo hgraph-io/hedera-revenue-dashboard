@@ -58,7 +58,7 @@ Hedera's revenue is calculated as follows:
 ### Revenue (USD)
 
 - The amount of revenue (in HBAR) shown is converted in real-time to USD.
-- The conversion rate is averaged over the time span selected by the user.
+- All USD conversions are done at the current market rate.
 - USD amounts do not factor into calculations. The displayed USD amount is strictly to provide context regarding network revenue for a given timeframe.
 
 ### Date dropdown
@@ -176,11 +176,11 @@ Tip: To run prettier on html and js files run: `npx prettier 'public/**/*.(html|
 - Creation of GraphQL queries (done)
 - Implimentation of KPIs (done)
 - Testing and QA (done)
-- Microservice API (in progress)
-- Historical data (in progress)
-- Visualizations (in progress)
-- Advanced filtering (in progress)
-- 
+- Microservice API
+- Historical data
+- Visualizations
+- Advanced filtering
+- Better USD conversions
 
 ## Tools Used
 

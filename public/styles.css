@@ -94,6 +94,17 @@ header {
     }
 }
 
+.data-disclaimer {
+    color: rgba(255,255,255,0.2);
+    font-size: 10px;
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 60px;
+    font-weight: 500;
+
+}
+
 footer {
     color: rgba(255,255,255,0.4);
     text-align: center;
@@ -317,7 +328,7 @@ footer a:hover {
     outline: none;
 }
 .value {
-    font-size: 30px;
+    font-size: 38px;
     margin: 80px auto 10px auto;
 }
 .value .hbar {
@@ -536,6 +547,7 @@ input:checked + .slider:before {
     max-width: 640px;
     margin: 0 auto;
     line-height: 1.5; 
+    padding: 0px 15px;
 
 h1 { 
     font-weight: 600;
