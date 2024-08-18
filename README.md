@@ -51,7 +51,7 @@ Hedera's revenue is calculated as follows:
   - HCS (Hedera Consensus Service)
   - Other (all other services, including HFS)
 
-![image](https://raw.githubusercontent.com/hgraph-io/hedera-revenue-dashboard/main/src/info/hashscan.png)
+![image](https://raw.githubusercontent.com/hgraph-io/hedera-revenue-dashboard/main/public/info/hashscan.png)
 
 *Image above: An example from a transaction as viewed on HashScan ([link](https://hashscan.io/mainnet/transaction/1723915342.599510003))*
 
