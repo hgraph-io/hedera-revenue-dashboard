@@ -7,14 +7,14 @@ query Deposits {
       }
     }
   }
-  staking: ecosystem_metric_aggregate(where: {name: {_eq: "staking_deposits"}}) {
+  staking: ecosystem_metric_aggregate(where: {name: {_eq: "staking_account_deposits"}}) {
     aggregate {
       sum {
         total
       }
     }
   }
-  treasury: ecosystem_metric_aggregate(where: {name: {_eq: "treasury_deposits"}}) {
+  treasury: ecosystem_metric_aggregate(where: {name: {_eq: "treasury_account_deposits"}}) {
     aggregate {
       sum {
         total

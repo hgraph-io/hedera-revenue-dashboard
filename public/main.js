@@ -132,9 +132,25 @@ function fetchStats() {
       staking: data.staking.aggregate.sum.total / 1e8,
       treasury: data.treasury.aggregate.sum.total / 1e8,
     }
+    const totalDeposits = fees.deposits.node + fees.deposits.staking + fees.deposits.treasury
+
     // deposits ui
     const nodeDepositsElement = document.getElementById('node-deposits')
-    nodeDepositsElement.innerText = fees.deposits.node.toLocaleString() + ' ℏ'
+    nodeDepositsElement.innerText = (~~fees.deposits.node).toLocaleString() + ' ℏ'
+    nodeDepositsElement.previousElementSibling.innerText =
+      ((fees.deposits.node / totalDeposits) * 100).toFixed(1) + ' %'
+
+    // staking ui
+    const stakingDepositsElement = document.getElementById('staking-deposits')
+    stakingDepositsElement.innerText = fees.deposits.staking.toLocaleString() + ' ℏ'
+    stakingDepositsElement.previousElementSibling.innerText =
+      ((fees.deposits.staking / totalDeposits) * 100).toFixed(1) + ' %'
+
+    // treasury ui
+    const treasuryDepositsElement = document.getElementById('treasury-deposits')
+    treasuryDepositsElement.innerText = fees.deposits.treasury.toLocaleString() + ' ℏ'
+    treasuryDepositsElement.previousElementSibling.innerText =
+      ((fees.deposits.treasury / totalDeposits) * 100).toFixed(1) + ' %'
   })
 }
 
