@@ -473,7 +473,7 @@ input:checked + .slider:before {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    border-top: 2px solid rgba(255,255,255,0.1);
+    border-top: 3px solid rgba(255,255,255,0.14);
     padding-bottom: 20px;
     padding-top: 20px;
     margin-bottom: 40px;
@@ -497,13 +497,13 @@ input:checked + .slider:before {
 
 h1 { 
     font-weight: 600;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
+    border-bottom: 1px dashed rgba(255,255,255,0.2);
     padding-bottom: 8px;
 }
 
 h2 { 
     font-weight: 600;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
+    border-bottom: 1px dashed rgba(255,255,255,0.2);
     padding-bottom: 8px;
  }
 
@@ -518,7 +518,7 @@ a {
 }
 
 a:hover {
-    
+    color: rgba(255,255,255,1); 
 }
 
 ul, ol {
@@ -528,7 +528,9 @@ ul, ol {
 
 
 img {
-
+ width: 100%;
+ margin-top: 20px;
+ border-radius: 8px;
 }
 
 /* Code Block Container */
