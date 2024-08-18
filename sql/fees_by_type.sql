@@ -78,7 +78,5 @@ begin
 		end_timestamp := (end_timestamp::timestamp9 + '1 hour'::interval)::timestamp9::bigint;
 
 	end loop;
-
 end;
-
 $$;

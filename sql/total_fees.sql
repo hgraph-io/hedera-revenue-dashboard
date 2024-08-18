@@ -1,7 +1,7 @@
 ---------------------------------------------------------------
 -- Load fee data
 ---------------------------------------------------------------
-create or replace procedure ecosystem.load_transaction_metrics()
+create or replace procedure ecosystem.load_fees()
 language plpgsql
 as $$
 
@@ -19,7 +19,7 @@ begin
 	/* start_timestamp := (select consensus_timestamp::timestamp9::date::timestamp9::bigint as start_timestamp from transaction order by consensus_timestamp asc limit 1); */
 
   -- start at the most recent entry in the metric table
-	start_timestamp := (select lower(timestamp_range) from ecosystem.metric where name = 'transactions' order by lower(timestamp_range) desc limit 1);
+	start_timestamp := (select lower(timestamp_range) from ecosystem.metric where name = 'transaction_fees' order by lower(timestamp_range) desc limit 1);
 	end_timestamp := (start_timestamp::timestamp9 + '1 hour'::interval)::bigint;
 
 
@@ -73,7 +73,7 @@ begin
 		)
 
 		select * from all_fees into result_set;
-		raise notice 'all_transactions: %', result_set;
+		raise notice 'all_fees: %', result_set;
 
 		-- reset timestamps
 		commit;
