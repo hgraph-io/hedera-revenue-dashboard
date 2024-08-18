@@ -18,6 +18,7 @@ function updateUI() {
     const previousValue = state[state.selectedPeriod].last[state.filter ? 'not_atma' : 'all']
     const change = (currentValue / previousValue - 1) * 100
 
+
     // Round the change to 1 decimal place
     const roundedChange = change.toFixed(1)
 
@@ -84,19 +85,38 @@ function main() {
   // Hour
   hgraph.query(hgraph.TransactionFeesLastHour).then((data) => {
     state.hour = {
-      all: data.all[0].total / 1e8,
-      not_atma: (data.all[0].total - data.atma[0].total) / 1e8,
+      all: Math.floor(data.all[0].total / 1e8),
+      not_atma: Math.floor((data.all[0].total - data.atma[0].total) / 1e8),
       last: {
-        all: data.last_all[0].total / 1e8,
-        not_atma: (data.last_all[0].total - data.last_atma[0].total) / 1e8,
+        all: Math.floor(data.last_all[0].total / 1e8),
+        not_atma: Math.floor((data.last_all[0].total - data.last_atma[0].total) / 1e8),
       },
     }
     // Initialize first value
     document.dispatchEvent(updateUIEvent)
   })
+  // All time
+  hgraph.query(hgraph.TransactionFeesAllTime).then((data) => {
+    state.all = {
+      all: Math.floor(data.all.aggregate.sum.total / 1e8),
+      not_atma: Math.floor(
+        (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8
+      ),
+      // set to the same value for change calculations
+      last: {
+        all: Math.floor(data.all.aggregate.sum.total / 1e8),
+        not_atma: Math.floor(
+          (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8
+        ),
+      },
+    }
+
+    // Initialize first value
+    document.dispatchEvent(updateUIEvent)
+  })
 
   // Get all other periods
-  for (const period of ['day', 'week', 'month', 'quarter', 'year', 'all']) {
+  for (const period of ['day', 'week', 'month', 'quarter', 'year']) {
     hgraph.query(hgraph.TransactionFees, dates[period]).then((data) => {
       state[period] = {
         all: Math.floor(data.all.aggregate.sum.total / 1e8),
