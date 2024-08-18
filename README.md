@@ -184,20 +184,12 @@ Tip: To run prettier on html and js files run: `npx prettier 'public/**/*.(html|
 
 ## Tools Used
 
-- Hedera mirror node
-- Hgraph infrastructure
-- Flexstack
-- CoinGecko
-- etc...
+- [Hedera mirror node](https://docs.hedera.com/hedera/core-concepts/mirror-nodes/hedera-mirror-node)
+- [Hgraph](https://github.com/hgraph-io/sdk)
+- [Flexstack](https://github.com/flexstack)
+- [CoinGecko](https://www.coingecko.com/en/api)
+- [Marked](https://github.com/markedjs/marked)
 
-## License
+---
 
-Info here
-
-## FAQ
-
-Info here
-
-## Acknowledgments
-
-Info here
+This is Hgraph's submission for the 2024 [Hello Future Hackathon](https://hellofuturehackathon.dev/). This tool will be updated based on new features, bug reports and questions.
