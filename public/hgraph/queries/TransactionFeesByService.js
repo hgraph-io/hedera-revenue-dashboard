@@ -110,8 +110,26 @@ query FeesByTransactionType {
       }
     }
   }
+  atma_total: ecosystem_metric_aggregate(
+    where: {period: {_eq: "hour"}, name: {_like: "atma_transaction_type_%_fees"}}
+  ) {
+    aggregate {
+      sum {
+        total
+      }
+    }
+  }
   hts: ecosystem_metric_aggregate(
     where: {period: {_eq: "hour"}, name: {_regex: "^transaction_type_(?:${hts})_fees$"}}
+  ) {
+    aggregate {
+      sum {
+        total
+      }
+    }
+  }
+  atma_hts: ecosystem_metric_aggregate(
+    where: {period: {_eq: "hour"}, name: {_regex: "^atma_transaction_type_(?:${hts})_fees$"}}
   ) {
     aggregate {
       sum {
@@ -128,8 +146,26 @@ query FeesByTransactionType {
       }
     }
   }
+  atma_hscs: ecosystem_metric_aggregate(
+    where: {period: {_eq: "hour"}, name: {_regex: "^atma_transaction_type_(?:${hscs})_fees$"}}
+  ) {
+    aggregate {
+      sum {
+        total
+      }
+    }
+  }
   hcs: ecosystem_metric_aggregate(
     where: {period: {_eq: "hour"}, name: {_regex: "^transaction_type_(?:${hcs})_fees$"}}
+  ) {
+    aggregate {
+      sum {
+        total
+      }
+    }
+  }
+  atma_hcs: ecosystem_metric_aggregate(
+    where: {period: {_eq: "hour"}, name: {_regex: "^atma_transaction_type_(?:${hcs})_fees$"}}
   ) {
     aggregate {
       sum {
