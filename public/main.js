@@ -136,7 +136,7 @@ function fetchStats() {
 
     // deposits ui
     const nodeDepositsElement = document.getElementById('node-deposits')
-    nodeDepositsElement.innerText = (~~fees.deposits.node).toLocaleString() + ' ℏ'
+    nodeDepositsElement.innerText = fees.deposits.node.toLocaleString() + ' ℏ'
     nodeDepositsElement.previousElementSibling.innerText =
       ((fees.deposits.node / totalDeposits) * 100).toFixed(1) + ' %'
 
