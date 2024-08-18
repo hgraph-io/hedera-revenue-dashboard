@@ -28,8 +28,6 @@ async function query(query, variables) {
   return json.data
 }
 
-console.log(FeesByTransactionType)
-
 export default {
   query,
   HourTransactionFees,
