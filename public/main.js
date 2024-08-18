@@ -51,19 +51,19 @@ function updateUI() {
     const nodeDepositsElement = document.getElementById('node-deposits')
     nodeDepositsElement.innerText = state.deposits.node.toLocaleString() + ' ℏ'
     nodeDepositsElement.previousElementSibling.innerText =
-      ((state.deposits.node / totalDeposits) * 100).toFixed(1) + ' %'
+      ((state.deposits.node / totalDeposits) * 100).toFixed(1) + '%'
 
     // staking ui
     const stakingDepositsElement = document.getElementById('staking-deposits')
     stakingDepositsElement.innerText = state.deposits.staking.toLocaleString() + ' ℏ'
     stakingDepositsElement.previousElementSibling.innerText =
-      ((state.deposits.staking / totalDeposits) * 100).toFixed(1) + ' %'
+      ((state.deposits.staking / totalDeposits) * 100).toFixed(1) + '%'
 
     // treasury ui
     const treasuryDepositsElement = document.getElementById('treasury-deposits')
     treasuryDepositsElement.innerText = state.deposits.treasury.toLocaleString() + ' ℏ'
     treasuryDepositsElement.previousElementSibling.innerText =
-      ((state.deposits.treasury / totalDeposits) * 100).toFixed(1) + ' %'
+      ((state.deposits.treasury / totalDeposits) * 100).toFixed(1) + '%'
   }
   // only load income data if it's available
   if (
