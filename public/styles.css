@@ -221,10 +221,10 @@ footer a:hover {
 
 .table {
     display: grid;
-    grid-template-columns: 70px 40px 1fr;
+    grid-template-columns: 70px 50px 1fr;
     gap: 0px;
     width: 100%;
-    max-width: 210px;
+    max-width: 220px;
     margin: 0 auto;
   }
   .row {
@@ -254,7 +254,7 @@ footer a:hover {
     font-size: 10px;
     display: block;
     width: 100%;
-    max-width: 210px;
+    max-width: 220px;
     margin: 0 auto 20px auto;
     letter-spacing: 2px;
     text-transform: uppercase;
