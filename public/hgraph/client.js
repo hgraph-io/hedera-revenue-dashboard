@@ -10,6 +10,7 @@ import QuarterTransactionFees from './queries/QuarterTransactionFees.js'
 import YearTransactionFees from './queries/YearTransactionFees.js'
 import AllTimeTransactionFees from './queries/AllTimeTransactionFees.js'
 import Deposits from './queries/Deposits.js'
+import FeesByTransactionType from './queries/FeesByTransactionType.js'
 
 async function query(query, variables) {
   const response = await fetch('https://mainnet.hedera.api.hgraph.dev/v1/graphql', {
@@ -27,6 +28,8 @@ async function query(query, variables) {
   return json.data
 }
 
+console.log(FeesByTransactionType)
+
 export default {
   query,
   HourTransactionFees,
@@ -37,4 +40,5 @@ export default {
   YearTransactionFees,
   AllTimeTransactionFees,
   Deposits,
+  FeesByTransactionType,
 }

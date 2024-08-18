@@ -1,7 +1,7 @@
 import hgraph from './hgraph/client.js'
 
 // global object to store the data
-var fees = {
+let fees = {
   selectedPeriod: 'hour',
   filter: false,
 }
@@ -151,6 +151,29 @@ function fetchStats() {
     treasuryDepositsElement.innerText = fees.deposits.treasury.toLocaleString() + ' ℏ'
     treasuryDepositsElement.previousElementSibling.innerText =
       ((fees.deposits.treasury / totalDeposits) * 100).toFixed(1) + ' %'
+  })
+
+  // Income
+  hgraph.query(hgraph.FeesByTransactionType).then((data) => {
+    fees.income = {
+      hts: data.hts.aggregate.sum.total / 1e8,
+      hscs: data.hscs.aggregate.sum.total / 1e8,
+      hcs: data.hcs.aggregate.sum.total / 1e8,
+      other:
+        (data.total.aggregate.sum.total -
+          data.hts.aggregate.sum.total -
+          data.hscs.aggregate.sum.total -
+          data.hcs.aggregate.sum.total) /
+        1e8,
+    }
+    const hts = document.getElementById('hts-income')
+    hts.innerText = fees.income.hts.toLocaleString() + ' ℏ'
+    const hscs = document.getElementById('hscs-income')
+    hscs.innerText = fees.income.hscs.toLocaleString() + ' ℏ'
+    const hcs = document.getElementById('hcs-income')
+    hcs.innerText = fees.income.hcs.toLocaleString() + ' ℏ'
+    const other = document.getElementById('other-income')
+    other.innerText = fees.income.other.toLocaleString() + ' ℏ'
   })
 }
 
