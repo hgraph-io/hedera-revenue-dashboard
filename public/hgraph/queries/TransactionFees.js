@@ -1,13 +1,7 @@
-const date = new Date()
-const startDate = new Date(date.setFullYear(date.getFullYear() - 1)).toISOString().split('T')[0]
-const previousStartDate = new Date(date.setFullYear(date.getFullYear() - 2))
-  .toISOString()
-  .split('T')[0]
-
 export default `
-query YearTransactionFees(
-	$startDate: timestamp = "${startDate}",
-	$previousStartDate: timestamp = "${previousStartDate}"
+query TransactionFees(
+	$startDate: timestamp,
+	$previousStartDate: timestamp
 	) {
   all: ecosystem_metric_aggregate(
     where: {name: {_eq: "transaction_fees"}, period: {_eq: "hour"}, start_date: {_gte: $startDate}}

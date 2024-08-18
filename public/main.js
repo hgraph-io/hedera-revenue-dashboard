@@ -1,48 +1,89 @@
 import hgraph from './hgraph/client.js'
+import dates from './hgraph/dates.js'
 
-// global object to store the data
-let fees = {
+// shared object to store the data
+let state = {
   selectedPeriod: 'hour',
   filter: false,
 }
+window.state = state
+// event to trigger an update to the UI, to be called when receiving data asynchronously
+const updateUIEvent = new Event('updateUI')
 
-function setStatsUI() {
-  const hbarElement = document.getElementById('total-hbar')
-  const changeElement = document.getElementById('change')
-  const currentValue = fees[fees.selectedPeriod][fees.filter ? 'not_atma' : 'all']
-  const previousValue = fees[fees.selectedPeriod].last[fees.filter ? 'not_atma' : 'all']
-  const change = (currentValue / previousValue - 1) * 100
+function updateUI() {
+  if (state[state.selectedPeriod]) {
+    const hbarElement = document.getElementById('total-hbar')
+    const changeElement = document.getElementById('change')
+    const currentValue = state[state.selectedPeriod][state.filter ? 'not_atma' : 'all']
+    const previousValue = state[state.selectedPeriod].last[state.filter ? 'not_atma' : 'all']
+    const change = (currentValue / previousValue - 1) * 100
 
-  // Round the change to 1 decimal place
-  const roundedChange = change.toFixed(1)
+    // Round the change to 1 decimal place
+    const roundedChange = change.toFixed(1)
 
-  // set initial value
-  hbarElement.innerText = currentValue.toLocaleString()
+    // set initial value
+    hbarElement.innerText = currentValue.toLocaleString()
 
-  // update change text
-  if (change) {
-    changeElement.innerText = `${roundedChange}% ${change >= 0 ? '↑' : '↓'}`
+    // update change text
+    if (change) {
+      changeElement.innerText = `${roundedChange}% ${change >= 0 ? '↑' : '↓'}`
 
-    // remove existing classes
-    changeElement.classList.remove('up', 'down')
+      // remove existing classes
+      changeElement.classList.remove('up', 'down')
 
-    // add the appropriate class
-    if (change >= 0) {
-      changeElement.classList.add('up')
+      // add the appropriate class
+      if (change >= 0) {
+        changeElement.classList.add('up')
+      } else {
+        changeElement.classList.add('down')
+      }
     } else {
-      changeElement.classList.add('down')
+      changeElement.innerText = ''
+      // remove any existing up or down classes if there's no change
+      changeElement.classList.remove('up', 'down')
     }
-  } else {
-    changeElement.innerText = ''
-    // remove any existing up or down classes if there's no change
-    changeElement.classList.remove('up', 'down')
+  }
+
+  if (state.deposits?.node && state.deposits?.staking && state?.deposits.treasury) {
+    const totalDeposits = state.deposits.node + state.deposits.staking + state.deposits.treasury
+
+    // deposits ui
+    const nodeDepositsElement = document.getElementById('node-deposits')
+    nodeDepositsElement.innerText = state.deposits.node.toLocaleString() + ' ℏ'
+    nodeDepositsElement.previousElementSibling.innerText =
+      ((state.deposits.node / totalDeposits) * 100).toFixed(1) + ' %'
+
+    // staking ui
+    const stakingDepositsElement = document.getElementById('staking-deposits')
+    stakingDepositsElement.innerText = state.deposits.staking.toLocaleString() + ' ℏ'
+    stakingDepositsElement.previousElementSibling.innerText =
+      ((state.deposits.staking / totalDeposits) * 100).toFixed(1) + ' %'
+
+    // treasury ui
+    const treasuryDepositsElement = document.getElementById('treasury-deposits')
+    treasuryDepositsElement.innerText = state.deposits.treasury.toLocaleString() + ' ℏ'
+    treasuryDepositsElement.previousElementSibling.innerText =
+      ((state.deposits.treasury / totalDeposits) * 100).toFixed(1) + ' %'
+  }
+  if (state.income?.hts && state.income?.hscs && state.income?.hcs && state.income?.other) {
+    const hts = document.getElementById('hts-income')
+    hts.innerText = state.income.hts.toLocaleString() + ' ℏ'
+    const hscs = document.getElementById('hscs-income')
+    hscs.innerText = state.income.hscs.toLocaleString() + ' ℏ'
+    const hcs = document.getElementById('hcs-income')
+    hcs.innerText = state.income.hcs.toLocaleString() + ' ℏ'
+    const other = document.getElementById('other-income')
+    other.innerText = state.income.other.toLocaleString() + ' ℏ'
   }
 }
 
-function fetchStats() {
+/*
+ * Fetch data from Hgraph's API and set UI elements
+ */
+function main() {
   // Hour
-  hgraph.query(hgraph.HourTransactionFees).then((data) => {
-    fees.hour = {
+  hgraph.query(hgraph.TransactionFeesLastHour).then((data) => {
+    state.hour = {
       all: data.all[0].total / 1e8,
       not_atma: (data.all[0].total - data.atma[0].total) / 1e8,
       last: {
@@ -51,141 +92,71 @@ function fetchStats() {
       },
     }
     // Initialize first value
-    setStatsUI()
-  })
-  // Day
-  hgraph.query(hgraph.DayTransactionFees).then((data) => {
-    fees.day = {
-      all: data.all.aggregate.sum.total / 1e8,
-      not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
-      last: {
-        all: data.last_all.aggregate.sum.total / 1e8,
-        not_atma:
-          (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8,
-      },
-    }
-  })
-  // Week
-  hgraph.query(hgraph.WeekTransactionFees).then((data) => {
-    fees.week = {
-      all: data.all.aggregate.sum.total / 1e8,
-      not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
-      last: {
-        all: data.last_all.aggregate.sum.total / 1e8,
-        not_atma:
-          (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8,
-      },
-    }
-  })
-  // Month
-  hgraph.query(hgraph.MonthTransactionFees).then((data) => {
-    fees.month = {
-      all: data.all.aggregate.sum.total / 1e8,
-      not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
-      last: {
-        all: data.last_all.aggregate.sum.total / 1e8,
-        not_atma:
-          (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8,
-      },
-    }
-  })
-  // Quarter
-  hgraph.query(hgraph.QuarterTransactionFees).then((data) => {
-    fees.quarter = {
-      all: data.all.aggregate.sum.total / 1e8,
-      not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
-      last: {
-        all: data.last_all.aggregate.sum.total / 1e8,
-        not_atma:
-          (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8,
-      },
-    }
-  })
-  // Year
-  hgraph.query(hgraph.YearTransactionFees).then((data) => {
-    fees.year = {
-      all: data.all.aggregate.sum.total / 1e8,
-      not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
-      last: {
-        all: data.last_all.aggregate.sum.total / 1e8,
-        not_atma:
-          (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8,
-      },
-    }
-  })
-  // All Time
-  hgraph.query(hgraph.AllTimeTransactionFees).then((data) => {
-    fees.all = {
-      all: data.all.aggregate.sum.total / 1e8,
-      not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
-      last: {
-        all: data.all.aggregate.sum.total / 1e8,
-        not_atma: (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8,
-      },
-    }
+    document.dispatchEvent(updateUIEvent)
   })
 
-  // Node deposits
+  // Get all other periods
+  for (const period of ['day', 'week', 'month', 'quarter', 'year', 'all']) {
+    hgraph.query(hgraph.TransactionFees, dates[period]).then((data) => {
+      state[period] = {
+        all: Math.floor(data.all.aggregate.sum.total / 1e8),
+        not_atma: Math.floor(
+          (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8
+        ),
+        last: {
+          all: Math.floor(data.last_all.aggregate.sum.total / 1e8),
+          not_atma: Math.floor(
+            (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8
+          ),
+        },
+      }
+    })
+    document.dispatchEvent(updateUIEvent)
+  }
+
+  /*
+   * Node deposits
+   */
   hgraph.query(hgraph.Deposits).then((data) => {
-    fees.deposits = {
-      node: data.node.aggregate.sum.total / 1e8,
-      staking: data.staking.aggregate.sum.total / 1e8,
-      treasury: data.treasury.aggregate.sum.total / 1e8,
+    state.deposits = {
+      node: Math.floor(data.node.aggregate.sum.total / 1e8),
+      staking: Math.floor(data.staking.aggregate.sum.total / 1e8),
+      treasury: Math.floor(data.treasury.aggregate.sum.total / 1e8),
     }
-    const totalDeposits = fees.deposits.node + fees.deposits.staking + fees.deposits.treasury
-
-    // deposits ui
-    const nodeDepositsElement = document.getElementById('node-deposits')
-    nodeDepositsElement.innerText = fees.deposits.node.toLocaleString() + ' ℏ'
-    nodeDepositsElement.previousElementSibling.innerText =
-      ((fees.deposits.node / totalDeposits) * 100).toFixed(1) + ' %'
-
-    // staking ui
-    const stakingDepositsElement = document.getElementById('staking-deposits')
-    stakingDepositsElement.innerText = fees.deposits.staking.toLocaleString() + ' ℏ'
-    stakingDepositsElement.previousElementSibling.innerText =
-      ((fees.deposits.staking / totalDeposits) * 100).toFixed(1) + ' %'
-
-    // treasury ui
-    const treasuryDepositsElement = document.getElementById('treasury-deposits')
-    treasuryDepositsElement.innerText = fees.deposits.treasury.toLocaleString() + ' ℏ'
-    treasuryDepositsElement.previousElementSibling.innerText =
-      ((fees.deposits.treasury / totalDeposits) * 100).toFixed(1) + ' %'
+    document.dispatchEvent(updateUIEvent)
   })
 
-  // Income
-  hgraph.query(hgraph.FeesByTransactionType).then((data) => {
-    fees.income = {
-      hts: data.hts.aggregate.sum.total / 1e8,
-      hscs: data.hscs.aggregate.sum.total / 1e8,
-      hcs: data.hcs.aggregate.sum.total / 1e8,
-      other:
+  /*
+   * Income
+   */
+  hgraph.query(hgraph.TransactionFeesByService).then((data) => {
+    state.income = {
+      hts: Math.floor(data.hts.aggregate.sum.total / 1e8),
+      hscs: Math.floor(data.hscs.aggregate.sum.total / 1e8),
+      hcs: Math.floor(data.hcs.aggregate.sum.total / 1e8),
+      other: Math.floor(
         (data.total.aggregate.sum.total -
           data.hts.aggregate.sum.total -
           data.hscs.aggregate.sum.total -
           data.hcs.aggregate.sum.total) /
-        1e8,
+          1e8
+      ),
     }
-    const hts = document.getElementById('hts-income')
-    hts.innerText = fees.income.hts.toLocaleString() + ' ℏ'
-    const hscs = document.getElementById('hscs-income')
-    hscs.innerText = fees.income.hscs.toLocaleString() + ' ℏ'
-    const hcs = document.getElementById('hcs-income')
-    hcs.innerText = fees.income.hcs.toLocaleString() + ' ℏ'
-    const other = document.getElementById('other-income')
-    other.innerText = fees.income.other.toLocaleString() + ' ℏ'
+    document.dispatchEvent(updateUIEvent)
   })
 }
 
+// set event listener to change the UI when data is received asynchronously
+document.addEventListener('updateUI', updateUI)
 // set event listener for state of selected period
 document.getElementById('timeframe').onchange = function (e) {
-  fees.selectedPeriod = e.target.value
-  setStatsUI()
+  state.selectedPeriod = e.target.value
+  updateUI()
 }
 // set event listener for atma filter
 document.getElementById('filter').onchange = function (e) {
-  fees.filter = e.target.checked
-  setStatsUI()
+  state.filter = e.target.checked
+  updateUI()
 }
 
-fetchStats()
+main()
