@@ -1,10 +1,10 @@
 const date = new Date()
 const previousQuarter = Math.floor(date.getMonth() / 3)
 
-const startDate = new Date(date.getFullYear(), previousQuarter * 3, 1)
+const startDate = new Date(date.getFullYear(), previousQuarter * 3 - 3, 1)
   .toISOString()
   .split('T')[0]
-const previousStartDate = new Date(date.getFullYear(), previousQuarter * 3 - 3, 1)
+const previousStartDate = new Date(date.getFullYear(), previousQuarter * 3 - 6, 1)
   .toISOString()
   .split('T')[0]
 
