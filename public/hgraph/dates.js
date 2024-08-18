@@ -27,10 +27,10 @@ export default {
     const _date = new Date(date)
     _date.setDate(0)
     _date.setDate(1)
-    const startDate = date.toISOString().split('T')[0]
+    const startDate = _date.toISOString().split('T')[0]
     _date.setDate(0)
     _date.setDate(1)
-    const previousStartDate = date.toISOString().split('T')[0]
+    const previousStartDate = _date.toISOString().split('T')[0]
     return {
       startDate,
       previousStartDate,
