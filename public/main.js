@@ -44,26 +44,37 @@ function updateUI() {
     }
   }
 
-  if (state.deposits?.node && state.deposits?.staking && state?.deposits.treasury) {
-    const totalDeposits = state.deposits.node + state.deposits.staking + state.deposits.treasury
+  if (
+    ['node', 'atma_node', 'staking', 'atma_staking', 'treasury', 'atma_treasury'].every(
+      (property) => state.deposits?.hasOwnProperty(property)
+    )
+  ) {
+    const prefix = state.filter ? 'atma_' : ''
+    console.log(state)
+    const totalDeposits =
+      state.deposits[`${prefix}node`] +
+      state.deposits[`${prefix}staking`] +
+      state.deposits[`${prefix}treasury`]
 
     // deposits ui
     const nodeDepositsElement = document.getElementById('node-deposits')
-    nodeDepositsElement.innerText = state.deposits.node.toLocaleString() + ' ℏ'
+    nodeDepositsElement.innerText = state.deposits[`${prefix}node`].toLocaleString() + ' ℏ'
     nodeDepositsElement.previousElementSibling.innerText =
-      ((state.deposits.node / totalDeposits) * 100).toFixed(1) + ' %'
+      Math.round((state.deposits[`${prefix}node`] / totalDeposits) * 100) + '%'
 
     // staking ui
     const stakingDepositsElement = document.getElementById('staking-deposits')
-    stakingDepositsElement.innerText = state.deposits.staking.toLocaleString() + ' ℏ'
+    stakingDepositsElement.innerText =
+      state.deposits[`${prefix}staking`].toLocaleString() + ' ℏ'
     stakingDepositsElement.previousElementSibling.innerText =
-      ((state.deposits.staking / totalDeposits) * 100).toFixed(1) + ' %'
+      Math.round((state.deposits[`${prefix}staking`] / totalDeposits) * 100) + '%'
 
     // treasury ui
     const treasuryDepositsElement = document.getElementById('treasury-deposits')
-    treasuryDepositsElement.innerText = state.deposits.treasury.toLocaleString() + ' ℏ'
+    treasuryDepositsElement.innerText =
+      state.deposits[`${prefix}treasury`].toLocaleString() + ' ℏ'
     treasuryDepositsElement.previousElementSibling.innerText =
-      ((state.deposits.treasury / totalDeposits) * 100).toFixed(1) + ' %'
+      Math.round((state.deposits[`${prefix}treasury`] / totalDeposits) * 100) + '%'
   }
   // only load income data if it's available
   if (
@@ -155,6 +166,12 @@ function main() {
       node: Math.floor(data.node.aggregate.sum.total / 1e8),
       staking: Math.floor(data.staking.aggregate.sum.total / 1e8),
       treasury: Math.floor(data.treasury.aggregate.sum.total / 1e8),
+    }
+    state.deposits = {
+      ...state.deposits,
+      atma_node: Math.floor(data.atma_node.aggregate.sum.total / 1e8),
+      atma_staking: Math.floor(data.atma_staking.aggregate.sum.total / 1e8),
+      atma_treasury: Math.floor(data.atma_treasury.aggregate.sum.total / 1e8),
     }
     document.dispatchEvent(updateUIEvent)
   })
