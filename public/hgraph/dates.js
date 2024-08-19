@@ -48,4 +48,9 @@ export default {
       .toISOString()
       .split('T')[0],
   },
+  hour: {
+    startDate: new Date(date.getTime() - 60 * 60 * 1000).toISOString().split(':')[0] + ':00:00',
+    previousStartDate:
+      new Date(date.getTime() - 60 * 2 * 60 * 1000).toISOString().split(':')[0] + ':00:00',
+  },
 }
