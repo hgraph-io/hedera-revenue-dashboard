@@ -294,10 +294,10 @@ footer a:hover {
 }
 .middle-section-title {
     display: flex;
-    font-size: 12px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    font-weight: 700;
+    font-weight: 600;
     color: rgba(255,255,255,0.4);
     background: #0A0A0A;
     max-width: 190px;
@@ -310,6 +310,7 @@ footer a:hover {
     align-items: center;
     box-shadow: 0 0 16px rgba(0, 0, 0, 0.34);
 }
+
 .dropdown-container {
     position: relative;
     max-width: 140px;
@@ -372,13 +373,24 @@ footer a:hover {
         }
 
     .controls-middle {
-            color: rgba(255,255,255,0.2);
-            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            font-size: 12px;
+            width: 140px;
+            text-align: right;
+            align-items: right;
+            justify-content: right;
+            margin-left: auto;
+            padding-right: 12px;
+            a {
+                text-decoration: none;
+                color: rgba(255,255,255,0.4);
+                border-bottom: 1px dotted rgba(255,255,255,0.24);
+            }
           }
 
   .controls-right {
     text-align: right;
-    width: 80px;
+    width: 40px;
   }
 
   .filter .filter-button {
@@ -470,10 +482,10 @@ footer a:hover {
 /* FILTER SWITCH */
 
 .switch-container {
-    margin: 20px auto 30px auto;
+    
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: right;
+    justify-content: right;
 }
 
 .label-left, .label-right {
