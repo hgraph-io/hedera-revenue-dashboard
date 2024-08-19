@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   displayDate()
   initHbarUsdConversion()
+  updateTime() // Call the function to start updating the time
 })
 
 // /*
@@ -23,6 +24,21 @@ function displayDate() {
   const options = {year: 'numeric', month: 'long', day: 'numeric'}
   const formattedDate = currentDate.toLocaleDateString('en-US', options).replace(',', '')
   document.getElementById('date').innerText = formattedDate
+}
+
+function updateTime() {
+  const timeElement = document.getElementById('current-time')
+  
+  function displayTime() {
+    const now = new Date()
+    const hours = now.getUTCHours().toString().padStart(2, '0')
+    const minutes = now.getUTCMinutes().toString().padStart(2, '0')
+    const formattedTime = `${hours}:${minutes}`
+    timeElement.textContent = formattedTime
+  }
+
+  displayTime() // Initial call to display the time immediately
+  setInterval(displayTime, 60000) // Update the time every minute
 }
 
 // Function to initialize the HBAR to USD conversion
