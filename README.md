@@ -4,8 +4,6 @@ A lightweight application and public website that allows anyone to view revenue 
 
 This is Hgraph's submission for the 2024 [Hello Future Hackathon](https://hellofuturehackathon.dev/).
 
-*Disclaimer: This revenue dashboard is not officially endorsed by Hedera and may contain inaccuracies.*
-
 ## About
 
 Hgraph's Hedera Revenue Dashboard was created to expose a core, new KPI required to measure the health of the Hedera network. This "revenue" KPI has been highly requested by developers, leaders, and the broader community. Revenue in this context is considered to be the fees earned by Hedera through transactions submitted to the Hedera network.
