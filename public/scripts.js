@@ -64,15 +64,38 @@ function initHbarUsdConversion() {
     return json.current_rate.cent_equivalent / json.current_rate.hbar_equivalent / 100
   }
 
-  // Function to format numbers with commas
-  function formatNumber(num) {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  // Function to parse the HBAR total based on locale
+  function parseHbarTotal(hbarText) {
+    // Remove any non-digit or non-period/comma characters
+    const sanitizedText = hbarText.replace(/[^\d.,]/g, '')
+
+    // Detect if the format uses periods or commas as thousands separators
+    const hasPeriod = sanitizedText.includes('.')
+    const hasComma = sanitizedText.includes(',')
+
+    let normalizedNumber
+
+    if (hasPeriod && hasComma) {
+      // Assume that period is used as thousands separator and comma as decimal point
+      normalizedNumber = sanitizedText.replace(/\./g, '').replace(',', '.')
+    } else if (hasPeriod) {
+      // If only period is present, assume it is a decimal point
+      normalizedNumber = sanitizedText.replace(/\./g, '')
+    } else if (hasComma) {
+      // If only comma is present, assume it is a decimal point (as per European conventions)
+      normalizedNumber = sanitizedText.replace(/,/g, '')
+    } else {
+      // If neither, just use the text as it is
+      normalizedNumber = sanitizedText
+    }
+
+    return parseFloat(normalizedNumber)
   }
 
   // Function to update the USD conversion
   async function updateUsdConversion() {
     const hbarTotalText = hbarElement.textContent
-    const hbarTotal = parseFloat(hbarTotalText.replace(/,/g, ''))
+    const hbarTotal = parseHbarTotal(hbarTotalText)
 
     if (isNaN(hbarTotal)) {
       console.error('Invalid HBAR total:', hbarTotalText)
@@ -82,7 +105,7 @@ function initHbarUsdConversion() {
     const usdRate = await fetchHbarToUsdRate()
     if (usdRate !== null) {
       const totalUsd = hbarTotal * usdRate
-      usdConvertElement.textContent = `$${formatNumber(totalUsd.toFixed(2))}`
+      usdConvertElement.textContent = `$${totalUsd.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
     }
   }
 
@@ -102,3 +125,4 @@ function initHbarUsdConversion() {
     updateUsdConversion()
   }
 }
+
