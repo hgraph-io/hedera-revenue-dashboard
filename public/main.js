@@ -99,14 +99,28 @@ function updateUI() {
       'not_atma_other',
     ].every((property) => state.income?.[period]?.hasOwnProperty(property))
   ) {
+    const totalIncome = state.income[period][prefix + 'total']
+    console.log(totalIncome)
+
     const hts = document.getElementById('hts-income')
     hts.innerText = state.income[period][prefix + 'hts'].toLocaleString() + ' ℏ'
+    hts.previousElementSibling.innerText =
+      Math.round((state.income[period][prefix + 'hts'] / totalIncome) * 100) + '%'
+
     const hscs = document.getElementById('hscs-income')
     hscs.innerText = state.income[period][prefix + 'hscs'].toLocaleString() + ' ℏ'
+    hscs.previousElementSibling.innerText =
+      Math.round((state.income[period][prefix + 'hscs'] / totalIncome) * 100) + '%'
+
     const hcs = document.getElementById('hcs-income')
     hcs.innerText = state.income[period][prefix + 'hcs'].toLocaleString() + ' ℏ'
+    hcs.previousElementSibling.innerText =
+      Math.round((state.income[period][prefix + 'hcs'] / totalIncome) * 100) + '%'
+
     const other = document.getElementById('other-income')
     other.innerText = state.income[period][prefix + 'other'].toLocaleString() + ' ℏ'
+    other.previousElementSibling.innerText =
+      Math.round((state.income[period][prefix + 'other'] / totalIncome) * 100) + '%'
   }
 }
 
@@ -193,6 +207,7 @@ function main() {
       .query(hgraph.TransactionFeesByService, {startDate: dates[period].startDate})
       .then((data) => {
         state.income[period] = {
+          total: Math.floor(data.total.aggregate.sum.total / 1e8),
           hts: Math.floor(data.hts.aggregate.sum.total / 1e8),
           hscs: Math.floor(data.hscs.aggregate.sum.total / 1e8),
           hcs: Math.floor(data.hcs.aggregate.sum.total / 1e8),
@@ -202,6 +217,9 @@ function main() {
               data.hscs.aggregate.sum.total -
               data.hcs.aggregate.sum.total) /
               1e8
+          ),
+          not_atma_total: Math.floor(
+            (data.total.aggregate.sum.total - data.atma_total.aggregate.sum.total) / 1e8
           ),
           not_atma_hts: Math.floor(
             (data.hts.aggregate.sum.total - data.atma_hts.aggregate.sum.total) / 1e8
