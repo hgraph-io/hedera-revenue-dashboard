@@ -2,11 +2,11 @@
  * For more robust client, see https://github.com/hgraph-io/sdk
  */
 
-import Deposits from './queries/Deposits.js'
-import TransactionFees from './queries/TransactionFees.js'
-import TransactionFeesAllTime from './queries/TransactionFeesAllTime.js'
-import TransactionFeesLastHour from './queries/TransactionFeesLastHour.js'
-import TransactionFeesByService from './queries/TransactionFeesByService.js'
+import Deposits from './queries/Deposits.mjs'
+import TransactionFees from './queries/TransactionFees.mjs'
+import TransactionFeesAllTime from './queries/TransactionFeesAllTime.mjs'
+import TransactionFeesLastHour from './queries/TransactionFeesLastHour.mjs'
+import TransactionFeesByService from './queries/TransactionFeesByService.mjs'
 
 async function query(query, variables) {
   const response = await fetch('https://mainnet.hedera.api.hgraph.dev/v1/graphql', {

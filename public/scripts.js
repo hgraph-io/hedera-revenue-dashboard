@@ -20,17 +20,17 @@ document.addEventListener('DOMContentLoaded', function () {
 // }
 
 function displayDate() {
-  const currentDate = new Date();
-  const month = (currentDate.getUTCMonth() + 1).toString().padStart(2, '0');
-  const day = currentDate.getUTCDate().toString().padStart(2, '0');
-  const year = currentDate.getUTCFullYear().toString().slice(-2); // Get last two digits of the year
-  const formattedDate = `${month}/${day}/${year}`;
-  document.getElementById('date').innerText = formattedDate;
+  const currentDate = new Date()
+  const month = (currentDate.getUTCMonth() + 1).toString().padStart(2, '0')
+  const day = currentDate.getUTCDate().toString().padStart(2, '0')
+  const year = currentDate.getUTCFullYear().toString().slice(-2) // Get last two digits of the year
+  const formattedDate = `${month}/${day}/${year}`
+  document.getElementById('date').innerText = formattedDate
 }
 
 function updateTime() {
   const timeElement = document.getElementById('current-time')
-  
+
   function displayTime() {
     const now = new Date()
     const hours = now.getUTCHours().toString().padStart(2, '0')
