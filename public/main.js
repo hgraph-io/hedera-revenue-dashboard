@@ -48,37 +48,43 @@ function updateUI() {
     }
   }
 
+  const prefix = state.filter ? 'not_atma_' : ''
   if (
-    ['node', 'atma_node', 'staking', 'atma_staking', 'treasury', 'atma_treasury'].every(
-      (property) => state.deposits[period]?.hasOwnProperty(property)
-    )
+    [
+      'node',
+      'staking',
+      'treasury',
+      'not_atma_node',
+      'not_atma_staking',
+      'not_atma_treasury',
+    ].every((property) => state.deposits[period]?.hasOwnProperty(property))
   ) {
-    const prefix = state.filter ? 'atma_' : ''
+    console.log(state.deposits[period])
     const totalDeposits =
-      state.deposits[period][`${prefix}node`] +
-      state.deposits[period][`${prefix}staking`] +
-      state.deposits[period][`${prefix}treasury`]
+      state.deposits[period][prefix + 'node'] +
+      state.deposits[period][prefix + 'staking'] +
+      state.deposits[period][prefix + 'treasury']
 
     // deposits ui
     const nodeDepositsElement = document.getElementById('node-deposits')
     nodeDepositsElement.innerText =
-      state.deposits[period][`${prefix}node`].toLocaleString() + ' ℏ'
+      state.deposits[period][prefix + 'node'].toLocaleString() + ' ℏ'
     nodeDepositsElement.previousElementSibling.innerText =
-      Math.round((state.deposits[period][`${prefix}node`] / totalDeposits) * 100) + '%'
+      Math.round((state.deposits[period][prefix + 'node'] / totalDeposits) * 100) + '%'
 
     // staking ui
     const stakingDepositsElement = document.getElementById('staking-deposits')
     stakingDepositsElement.innerText =
-      state.deposits[period][`${prefix}staking`].toLocaleString() + ' ℏ'
+      state.deposits[period][prefix + 'staking'].toLocaleString() + ' ℏ'
     stakingDepositsElement.previousElementSibling.innerText =
-      Math.round((state.deposits[period][`${prefix}staking`] / totalDeposits) * 100) + '%'
+      Math.round((state.deposits[period][prefix + 'staking'] / totalDeposits) * 100) + '%'
 
     // treasury ui
     const treasuryDepositsElement = document.getElementById('treasury-deposits')
     treasuryDepositsElement.innerText =
-      state.deposits[period][`${prefix}treasury`].toLocaleString() + ' ℏ'
+      state.deposits[period][prefix + 'treasury'].toLocaleString() + ' ℏ'
     treasuryDepositsElement.previousElementSibling.innerText =
-      Math.round((state.deposits[period][`${prefix}treasury`] / totalDeposits) * 100) + '%'
+      Math.round((state.deposits[period][prefix + 'treasury'] / totalDeposits) * 100) + '%'
   }
   // only load income data if it's available
   if (
@@ -91,18 +97,16 @@ function updateUI() {
       'not_atma_hcs',
       'not_atma_hscs',
       'not_atma_other',
-    ].every((property) => state.income?.hasOwnProperty(property))
+    ].every((property) => state.income?.[period]?.hasOwnProperty(property))
   ) {
     const hts = document.getElementById('hts-income')
-    hts.innerText = state.income[state.filter ? 'not_atma_hts' : 'hts'].toLocaleString() + ' ℏ'
+    hts.innerText = state.income[period][prefix + 'hts'].toLocaleString() + ' ℏ'
     const hscs = document.getElementById('hscs-income')
-    hscs.innerText =
-      state.income[state.filter ? 'not_atma_hscs' : 'hscs'].toLocaleString() + ' ℏ'
+    hscs.innerText = state.income[period][prefix + 'hscs'].toLocaleString() + ' ℏ'
     const hcs = document.getElementById('hcs-income')
-    hcs.innerText = state.income[state.filter ? 'not_atma_hcs' : 'hcs'].toLocaleString() + ' ℏ'
+    hcs.innerText = state.income[period][prefix + 'hcs'].toLocaleString() + ' ℏ'
     const other = document.getElementById('other-income')
-    other.innerText =
-      state.income[state.filter ? 'not_atma_other' : 'other'].toLocaleString() + ' ℏ'
+    other.innerText = state.income[period][prefix + 'other'].toLocaleString() + ' ℏ'
   }
 }
 
@@ -165,53 +169,66 @@ function main() {
     /*
      * Node deposits
      */
-    console.log(period)
-    console.log(dates[period])
     hgraph.query(hgraph.Deposits, {startDate: dates[period].startDate}).then((data) => {
       state.deposits[period] = {
         node: Math.floor(data.node.aggregate.sum.total / 1e8),
         staking: Math.floor(data.staking.aggregate.sum.total / 1e8),
         treasury: Math.floor(data.treasury.aggregate.sum.total / 1e8),
-        atma_node: Math.floor(data.atma_node.aggregate.sum.total / 1e8),
-        atma_staking: Math.floor(data.atma_staking.aggregate.sum.total / 1e8),
-        atma_treasury: Math.floor(data.atma_treasury.aggregate.sum.total / 1e8),
+        not_atma_node: Math.floor(
+          (data.node.aggregate.sum.total - data.atma_node.aggregate.sum.total) / 1e8
+        ),
+        not_atma_staking: Math.floor(
+          (data.staking.aggregate.sum.total - data.atma_staking.aggregate.sum.total) / 1e8
+        ),
+        not_atma_treasury: Math.floor(
+          (data.treasury.aggregate.sum.total - data.atma_treasury.aggregate.sum.total) / 1e8
+        ),
       }
     })
-  }
 
-  /*
-   * Income
-   */
-  hgraph.query(hgraph.TransactionFeesByService).then((data) => {
-    state.income = {
-      hts: Math.floor(data.hts.aggregate.sum.total / 1e8),
-      hscs: Math.floor(data.hscs.aggregate.sum.total / 1e8),
-      hcs: Math.floor(data.hcs.aggregate.sum.total / 1e8),
-      other: Math.floor(
-        (data.total.aggregate.sum.total -
-          data.hts.aggregate.sum.total -
-          data.hscs.aggregate.sum.total -
-          data.hcs.aggregate.sum.total) /
-          1e8
-      ),
-    }
-    state.income = {
-      ...state.income,
-      not_atma_hts: state.income.hts - Math.floor(data.atma_hts.aggregate.sum.total / 1e8),
-      not_atma_hscs: state.income.hscs - Math.floor(data.atma_hscs.aggregate.sum.total / 1e8),
-      not_atma_hcs: state.income.hcs - Math.floor(data.atma_hcs.aggregate.sum.total / 1e8),
-      not_atma_other:
-        state.income.other -
-        Math.floor(
-          (data.atma_total.aggregate.sum.total -
-            data.atma_hts.aggregate.sum.total -
-            data.atma_hscs.aggregate.sum.total -
-            data.atma_hcs.aggregate.sum.total) /
-            1e8
-        ),
-    }
-    document.dispatchEvent(updateUIEvent)
-  })
+    /*
+     * Income
+     */
+    hgraph
+      .query(hgraph.TransactionFeesByService, {startDate: dates[period].startDate})
+      .then((data) => {
+        state.income[period] = {
+          hts: Math.floor(data.hts.aggregate.sum.total / 1e8),
+          hscs: Math.floor(data.hscs.aggregate.sum.total / 1e8),
+          hcs: Math.floor(data.hcs.aggregate.sum.total / 1e8),
+          other: Math.floor(
+            (data.total.aggregate.sum.total -
+              data.hts.aggregate.sum.total -
+              data.hscs.aggregate.sum.total -
+              data.hcs.aggregate.sum.total) /
+              1e8
+          ),
+          not_atma_hts: Math.floor(
+            (data.hts.aggregate.sum.total - data.atma_hts.aggregate.sum.total) / 1e8
+          ),
+          not_atma_hscs: Math.floor(
+            (data.hscs.aggregate.sum.total - data.atma_hscs.aggregate.sum.total) / 1e8
+          ),
+          not_atma_hcs: Math.floor(
+            (data.hcs.aggregate.sum.total - data.atma_hcs.aggregate.sum.total) / 1e8
+          ),
+          not_atma_other: Math.floor(
+            // other
+            (data.total.aggregate.sum.total -
+              data.hts.aggregate.sum.total -
+              data.hscs.aggregate.sum.total -
+              data.hcs.aggregate.sum.total -
+              // atma other
+              (data.atma_total.aggregate.sum.total -
+                data.atma_hts.aggregate.sum.total -
+                data.atma_hscs.aggregate.sum.total -
+                data.atma_hcs.aggregate.sum.total)) /
+              1e8
+          ),
+        }
+        document.dispatchEvent(updateUIEvent)
+      })
+  }
 }
 
 // set event listener to change the UI when data is received asynchronously
