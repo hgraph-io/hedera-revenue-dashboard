@@ -29,7 +29,7 @@ A most important aspect of this tool is simplicity. Rather than overwhelm users 
 ## Resources
 
 * [Public website (demo)](https://hederarevenue.com)
-* Video walkthrough
+* [Video walkthrough](https://youtu.be/jY3w2cACv8k)
 * [Presentation deck](https://docs.google.com/presentation/d/1tmjeGSnlCF1-alqbqRLI95QxOzW3er4lJgOUy_02Ohk/edit?usp=sharing)
 * [Mirror nodes blog article](https://www.hgraph.com/blog/hedera-mirror-node)
 * [Hgraph official website](https://www.hgraph.com/)
