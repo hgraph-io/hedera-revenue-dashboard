@@ -1,8 +1,12 @@
-import hgraph from './hgraph'
+import hgraph from './hgraph/client.mjs'
+import dates from './hgraph/dates.mjs'
+
 /*
- * Fetch data from Hgraph's API and set UI elements
+ * Fetch data from Hgraph's API
+ * we are not using async/await here because we want to run the queries in parallel
  */
-export default function main() {
+export default function main(state) {
+  console.log(new Date(), 'Refreshing data...')
   for (const period of ['hour', 'day', 'week', 'month', 'quarter', 'year', 'all']) {
     /*
      * Transaction fees
@@ -10,6 +14,7 @@ export default function main() {
     if (period === 'hour') {
       // Transaction fees in the last hour
       hgraph.query(hgraph.TransactionFeesLastHour).then((data) => {
+        console.log(data)
         state.hour = {
           all: Math.floor(data.all[0].total / 1e8),
           not_atma: Math.floor((data.all[0].total - data.atma[0].total) / 1e8),
@@ -18,7 +23,6 @@ export default function main() {
             not_atma: Math.floor((data.last_all[0].total - data.last_atma[0].total) / 1e8),
           },
         }
-        document.dispatchEvent(updateUIEvent)
       })
     } else if (period === 'all') {
       hgraph.query(hgraph.TransactionFeesAllTime).then((data) => {
@@ -35,7 +39,6 @@ export default function main() {
             ),
           },
         }
-        document.dispatchEvent(updateUIEvent)
       })
     } else {
       hgraph.query(hgraph.TransactionFees, dates[period]).then((data) => {
@@ -51,7 +54,6 @@ export default function main() {
             ),
           },
         }
-        document.dispatchEvent(updateUIEvent)
       })
     }
 
@@ -119,7 +121,6 @@ export default function main() {
               1e8
           ),
         }
-        document.dispatchEvent(updateUIEvent)
       })
   }
 }

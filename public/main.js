@@ -1,6 +1,3 @@
-import hgraph from './hgraph/client.js'
-import dates from './hgraph/dates.js'
-
 // shared object to store the data
 let state = {
   period: 'hour',
@@ -9,6 +6,7 @@ let state = {
   income: {},
 }
 
+// helpful to see data used in the console
 window.state = state
 
 function updateUI() {
@@ -97,6 +95,7 @@ function updateUI() {
   other.previousElementSibling.innerText =
     Math.round((state.income[period][prefix + 'other'] / totalIncome) * 100) + '%'
 }
+
 // set event listener to change the UI when data is received asynchronously
 document.addEventListener('updateUI', updateUI)
 // set event listener for state of selected period
