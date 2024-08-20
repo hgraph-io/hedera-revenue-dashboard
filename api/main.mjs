@@ -14,7 +14,6 @@ export default function main(state) {
     if (period === 'hour') {
       // Transaction fees in the last hour
       hgraph.query(hgraph.TransactionFeesLastHour).then((data) => {
-        console.log(data)
         state.hour = {
           all: Math.floor(data.all[0].total / 1e8),
           not_atma: Math.floor((data.all[0].total - data.atma[0].total) / 1e8),

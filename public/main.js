@@ -110,9 +110,13 @@ document.getElementById('filter').onchange = function (e) {
 }
 
 async function main() {
-  const response = await fetch('https://hrd.hgra.ph')
+  const response = await fetch(
+    location.hostname === 'localhost'
+      ? 'http://localhost:3001/data.json'
+      : 'https://hrd.hgra.ph/data.json'
+  )
   const json = await response.json()
-  state = {...state, ...json.data}
+  state = {...state, ...json}
   updateUI()
 }
 
