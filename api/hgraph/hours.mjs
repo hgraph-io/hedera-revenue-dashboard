@@ -1,6 +1,4 @@
 export default {
-  // 32 bit signed integer
-  all: 2 ** 31 - 1,
   year: 365 * 24,
   month: (365 / 12) * 24,
   week: 7 * 24,
