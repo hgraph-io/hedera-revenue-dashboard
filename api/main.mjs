@@ -7,22 +7,26 @@ import hours from './hgraph/hours.mjs'
  */
 export default function main(state) {
   console.log(new Date(), 'Refreshing data...')
+  // for (const period of ['hour', 'day', 'week', 'month', 'year', 'all']) {
   for (const period of ['hour', 'day', 'week', 'month', 'year', 'all']) {
     // Transaction fees
-    hgraph.query(hgraph.TransactionFees, {limit: hours[period]}).then((data) => {
-      state[period] = {
-        all: Math.floor(data.all.aggregate.sum.total / 1e8),
-        not_atma: Math.floor(
-          (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8
-        ),
-        last: {
-          all: Math.floor(data.last_all.aggregate.sum.total / 1e8),
+    hgraph
+      // Do not count most recent hour as it is not a full hour yet
+      .query(hgraph.TransactionFees, {limit: hours[period], offset: hours[period] + 1})
+      .then((data) => {
+        state[period] = {
+          all: Math.floor(data.all.aggregate.sum.total / 1e8),
           not_atma: Math.floor(
-            (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8
+            (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8
           ),
-        },
-      }
-    })
+          last: {
+            all: Math.floor(data.last_all.aggregate.sum.total / 1e8),
+            not_atma: Math.floor(
+              (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8
+            ),
+          },
+        }
+      })
     //  Node deposits
     hgraph.query(hgraph.Deposits, {limit: hours[period]}).then((data) => {
       state.deposits[period] = {
@@ -42,6 +46,7 @@ export default function main(state) {
     })
     // Income
     hgraph.query(hgraph.TransactionFeesByService, {limit: hours[period]}).then((data) => {
+      console.log(data)
       state.income[period] = {
         total: Math.floor(data.total.aggregate.sum.total / 1e8),
         hts: Math.floor(data.hts.aggregate.sum.total / 1e8),

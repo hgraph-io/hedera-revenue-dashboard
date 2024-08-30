@@ -105,7 +105,7 @@ function initHbarUsdConversion() {
     const usdRate = await fetchHbarToUsdRate()
     if (usdRate !== null) {
       const totalUsd = hbarTotal * usdRate
-      usdConvertElement.textContent = `$${totalUsd.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+      usdConvertElement.textContent = `$${totalUsd.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
     }
   }
 
@@ -125,4 +125,3 @@ function initHbarUsdConversion() {
     updateUsdConversion()
   }
 }
-

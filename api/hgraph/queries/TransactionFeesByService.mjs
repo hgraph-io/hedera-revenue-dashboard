@@ -100,11 +100,11 @@ const hcs = [
 // The similar operator is a sql regex match, to use a POSIX regex match we would use _regex instead
 // The like operator is much faster, use when possible
 export default `
-query TransactionFeesByService(
-	$startDate: timestamp,
-){
+query TransactionFeesByService($limit: Int) {
   total: ecosystem_metric_aggregate(
-    where: {period: {_eq: "hour"}, name: {_like: "transaction_type_%_fees"}, start_date: {_gte: $startDate}}
+    where: {period: {_eq: "hour"}, name: {_like: "transaction_type_%_fees"}}
+    order_by: {start_date: desc}
+    limit: $limit
   ) {
     aggregate {
       sum {
@@ -113,7 +113,9 @@ query TransactionFeesByService(
     }
   }
   atma_total: ecosystem_metric_aggregate(
-    where: {period: {_eq: "hour"}, name: {_like: "atma_transaction_type_%_fees"}, start_date: {_gte: $startDate}}
+    where: {period: {_eq: "hour"}, name: {_like: "atma_transaction_type_%_fees"}}
+    order_by: {start_date: desc}
+    limit: $limit
   ) {
     aggregate {
       sum {
@@ -122,7 +124,9 @@ query TransactionFeesByService(
     }
   }
   hts: ecosystem_metric_aggregate(
-    where: {period: {_eq: "hour"}, name: {_regex: "^transaction_type_(?:${hts})_fees$"}, start_date: {_gte: $startDate}}
+    where: {period: {_eq: "hour"}, name: {_regex: "^transaction_type_(?:${hts})_fees$"}}
+    order_by: {start_date: desc}
+    limit: $limit
   ) {
     aggregate {
       sum {
@@ -131,7 +135,9 @@ query TransactionFeesByService(
     }
   }
   atma_hts: ecosystem_metric_aggregate(
-    where: {period: {_eq: "hour"}, name: {_regex: "^atma_transaction_type_(?:${hts})_fees$"}, start_date: {_gte: $startDate}}
+    where: {period: {_eq: "hour"}, name: {_regex: "^atma_transaction_type_(?:${hts})_fees$"}}
+    order_by: {start_date: desc}
+    limit: $limit
   ) {
     aggregate {
       sum {
@@ -140,7 +146,9 @@ query TransactionFeesByService(
     }
   }
   hscs: ecosystem_metric_aggregate(
-    where: {period: {_eq: "hour"}, name: {_regex: "^transaction_type_(?:${hscs})_fees$"}, start_date: {_gte: $startDate}}
+    where: {period: {_eq: "hour"}, name: {_regex: "^transaction_type_(?:${hscs})_fees$"}}
+    order_by: {start_date: desc}
+    limit: $limit
   ) {
     aggregate {
       sum {
@@ -149,7 +157,9 @@ query TransactionFeesByService(
     }
   }
   atma_hscs: ecosystem_metric_aggregate(
-    where: {period: {_eq: "hour"}, name: {_regex: "^atma_transaction_type_(?:${hscs})_fees$"}, start_date: {_gte: $startDate}}
+    where: {period: {_eq: "hour"}, name: {_regex: "^atma_transaction_type_(?:${hscs})_fees$"}}
+    order_by: {start_date: desc}
+    limit: $limit
   ) {
     aggregate {
       sum {
@@ -158,7 +168,9 @@ query TransactionFeesByService(
     }
   }
   hcs: ecosystem_metric_aggregate(
-    where: {period: {_eq: "hour"}, name: {_regex: "^transaction_type_(?:${hcs})_fees$"}, start_date: {_gte: $startDate}}
+    where: {period: {_eq: "hour"}, name: {_regex: "^transaction_type_(?:${hcs})_fees$"}}
+    order_by: {start_date: desc}
+    limit: $limit
   ) {
     aggregate {
       sum {
@@ -167,7 +179,9 @@ query TransactionFeesByService(
     }
   }
   atma_hcs: ecosystem_metric_aggregate(
-    where: {period: {_eq: "hour"}, name: {_regex: "^atma_transaction_type_(?:${hcs})_fees$"}, start_date: {_gte: $startDate}}
+    where: {period: {_eq: "hour"}, name: {_regex: "^atma_transaction_type_(?:${hcs})_fees$"}}
+    order_by: {start_date: desc}
+    limit: $limit
   ) {
     aggregate {
       sum {
@@ -175,4 +189,5 @@ query TransactionFeesByService(
       }
     }
   }
-}`
+}
+`

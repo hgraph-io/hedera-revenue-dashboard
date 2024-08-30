@@ -170,15 +170,20 @@ query AllTimeTransactionFees {
 ## Developing
 
 ```bash
-npx serve public && node api/server.mjs
+npx serve public
 ```
 
 - This command uses `npx` to run the `serve` package, which serves the `public` directory as a
   static website.
-- `node api/server.mjs` starts a backend process that periodically gets new data from the api
-  and caches it.
 - Once the server is running, open your browser and go to the URL provided (usually
   [http://localhost:3000](http://localhost:3000)).
+
+```bash
+node api/server.mjs
+```
+
+- This starts a backend process that periodically gets new data from the api and caches it.
+- `curl localhost:3001/data.json`
 
 ## Contributing
 
@@ -246,4 +251,3 @@ broadly accessible and require as few dependencies as possible.
 This is Hgraph's submission for the 2024
 [Hello Future Hackathon](https://hellofuturehackathon.dev/). This tool will be updated based on
 new features, bug reports and questions.
-

@@ -1,8 +1,11 @@
 export default `
-query TransactionFees($limit: Int) {
+query TransactionFees($limit: Int, $offset: Int) {
   all: ecosystem_metric_aggregate(
-    limit: $limit
     where: {name: {_eq: "transaction_fees"}, period: {_eq: "hour"}}
+    order_by: {start_date: desc}
+    limit: $limit
+    # Do not count most recent hour as it is not a full hour yet
+    offset: 1
   ) {
     aggregate {
       sum {
@@ -11,8 +14,11 @@ query TransactionFees($limit: Int) {
     }
   }
   atma: ecosystem_metric_aggregate(
-    limit: $limit
     where: {name: {_eq: "atma_transaction_fees"}, period: {_eq: "hour"}}
+    order_by: {start_date: desc}
+    limit: $limit
+    # Do not count most recent hour as it is not a full hour yet
+    offset: 1
   ) {
     aggregate {
       sum {
@@ -21,9 +27,10 @@ query TransactionFees($limit: Int) {
     }
   }
   last_all: ecosystem_metric_aggregate(
-    limit: $limit
-    offset: $limit
     where: {name: {_eq: "transaction_fees"}, period: {_eq: "hour"}}
+    order_by: {start_date: desc}
+    limit: $limit
+    offset: $offset
   ) {
     aggregate {
       sum {
@@ -32,9 +39,10 @@ query TransactionFees($limit: Int) {
     }
   }
   last_atma: ecosystem_metric_aggregate(
-    limit: $limit
-    offset: $limit
     where: {name: {_eq: "atma_transaction_fees"}, period: {_eq: "hour"}}
+    order_by: {start_date: desc}
+    limit: $limit
+    offset: $offset
   ) {
     aggregate {
       sum {
