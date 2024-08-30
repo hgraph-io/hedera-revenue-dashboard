@@ -1,5 +1,5 @@
 import hgraph from './hgraph/client.mjs'
-import hours from './hgraph/hours.mjs'
+import dates from './hgraph/dates.mjs'
 
 /*
  * Fetch data from Hgraph's API
@@ -7,88 +7,86 @@ import hours from './hgraph/hours.mjs'
  */
 export default function main(state) {
   console.log(new Date(), 'Refreshing data...')
-  for (const period of ['hour', 'day', 'week', 'month', 'year', 'all']) {
+  // for (const period of ['hour', 'day', 'week', 'month', 'year', 'all']) {
+  for (const period of ['hour']) {
     // Transaction fees
-    hgraph
-      .query(hgraph.TransactionFees, {limit: hours[period], end_date: hours.lastFullHour()})
-      .then((data) => {
-        state[period] = {
-          all: Math.floor(data.all.aggregate.sum.total / 1e8),
-          not_atma: Math.floor(
-            (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8
-          ),
-          last: {
-            all: Math.floor(data.last_all.aggregate.sum.total / 1e8),
-            not_atma: Math.floor(
-              (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8
-            ),
-          },
-        }
-      })
+    // hgraph.query(hgraph.TransactionFees, dates[period]).then((data) => {
+    //   state[period] = {
+    //     all: Math.floor(data.all.aggregate.sum.total / 1e8),
+    //     not_atma: Math.floor(
+    //       (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8
+    //     ),
+    //     last: {
+    //       all: Math.floor(data.last_all.aggregate.sum.total / 1e8),
+    //       not_atma: Math.floor(
+    //         (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8
+    //       ),
+    //     },
+    //   }
+    // })
     //  Node deposits
-    hgraph
-      .query(hgraph.Deposits, {limit: hours[period], end_date: hours.lastFullHour()})
-      .then((data) => {
-        state.deposits[period] = {
-          node: Math.floor(data.node.aggregate.sum.total / 1e8),
-          staking: Math.floor(data.staking.aggregate.sum.total / 1e8),
-          treasury: Math.floor(data.treasury.aggregate.sum.total / 1e8),
-          not_atma_node: Math.floor(
-            (data.node.aggregate.sum.total - data.atma_node.aggregate.sum.total) / 1e8
-          ),
-          not_atma_staking: Math.floor(
-            (data.staking.aggregate.sum.total - data.atma_staking.aggregate.sum.total) / 1e8
-          ),
-          not_atma_treasury: Math.floor(
-            (data.treasury.aggregate.sum.total - data.atma_treasury.aggregate.sum.total) / 1e8
-          ),
-        }
-      })
+    // hgraph
+    //   .query(hgraph.Deposits, {limit: hours[period], end_date: hours.lastFullHour()})
+    //   .then((data) => {
+    //     state.deposits[period] = {
+    //       node: Math.floor(data.node.aggregate.sum.total / 1e8),
+    //       staking: Math.floor(data.staking.aggregate.sum.total / 1e8),
+    //       treasury: Math.floor(data.treasury.aggregate.sum.total / 1e8),
+    //       not_atma_node: Math.floor(
+    //         (data.node.aggregate.sum.total - data.atma_node.aggregate.sum.total) / 1e8
+    //       ),
+    //       not_atma_staking: Math.floor(
+    //         (data.staking.aggregate.sum.total - data.atma_staking.aggregate.sum.total) / 1e8
+    //       ),
+    //       not_atma_treasury: Math.floor(
+    //         (data.treasury.aggregate.sum.total - data.atma_treasury.aggregate.sum.total) / 1e8
+    //       ),
+    //     }
+    //   })
     // Income
-    hgraph
-      .query(hgraph.TransactionFeesByService, {
-        limit: hours[period],
-        end_date: hours.lastFullHour(),
-      })
-      .then((data) => {
-        state.income[period] = {
-          total: Math.floor(data.total.aggregate.sum.total / 1e8),
-          hts: Math.floor(data.hts.aggregate.sum.total / 1e8),
-          hscs: Math.floor(data.hscs.aggregate.sum.total / 1e8),
-          hcs: Math.floor(data.hcs.aggregate.sum.total / 1e8),
-          other: Math.floor(
-            (data.total.aggregate.sum.total -
-              data.hts.aggregate.sum.total -
-              data.hscs.aggregate.sum.total -
-              data.hcs.aggregate.sum.total) /
-              1e8
-          ),
-          not_atma_total: Math.floor(
-            (data.total.aggregate.sum.total - data.atma_total.aggregate.sum.total) / 1e8
-          ),
-          not_atma_hts: Math.floor(
-            (data.hts.aggregate.sum.total - data.atma_hts.aggregate.sum.total) / 1e8
-          ),
-          not_atma_hscs: Math.floor(
-            (data.hscs.aggregate.sum.total - data.atma_hscs.aggregate.sum.total) / 1e8
-          ),
-          not_atma_hcs: Math.floor(
-            (data.hcs.aggregate.sum.total - data.atma_hcs.aggregate.sum.total) / 1e8
-          ),
-          not_atma_other: Math.floor(
-            // other
-            (data.total.aggregate.sum.total -
-              data.hts.aggregate.sum.total -
-              data.hscs.aggregate.sum.total -
-              data.hcs.aggregate.sum.total -
-              // atma other
-              (data.atma_total.aggregate.sum.total -
-                data.atma_hts.aggregate.sum.total -
-                data.atma_hscs.aggregate.sum.total -
-                data.atma_hcs.aggregate.sum.total)) /
-              1e8
-          ),
-        }
-      })
+    hgraph.query(hgraph.TransactionFeesByService, dates[period]).then((data) => {
+      if (period === 'hour') {
+        // console.log(hgraph.TransactionFeesByService, hours[period], hours.lastFullHour())
+        // console.log(JSON.stringify(data, null, 2))
+      }
+      state.income[period] = {
+        total: Math.floor(data.total.aggregate.sum.total / 1e8),
+        hts: Math.floor(data.hts.aggregate.sum.total / 1e8),
+        hscs: Math.floor(data.hscs.aggregate.sum.total / 1e8),
+        hcs: Math.floor(data.hcs.aggregate.sum.total / 1e8),
+        other: Math.floor(
+          (data.total.aggregate.sum.total -
+            data.hts.aggregate.sum.total -
+            data.hscs.aggregate.sum.total -
+            data.hcs.aggregate.sum.total) /
+            1e8
+        ),
+        not_atma_total: Math.floor(
+          (data.total.aggregate.sum.total - data.atma_total.aggregate.sum.total) / 1e8
+        ),
+        not_atma_hts: Math.floor(
+          (data.hts.aggregate.sum.total - data.atma_hts.aggregate.sum.total) / 1e8
+        ),
+        not_atma_hscs: Math.floor(
+          (data.hscs.aggregate.sum.total - data.atma_hscs.aggregate.sum.total) / 1e8
+        ),
+        not_atma_hcs: Math.floor(
+          (data.hcs.aggregate.sum.total - data.atma_hcs.aggregate.sum.total) / 1e8
+        ),
+        not_atma_other: Math.floor(
+          // other
+          (data.total.aggregate.sum.total -
+            data.hts.aggregate.sum.total -
+            data.hscs.aggregate.sum.total -
+            data.hcs.aggregate.sum.total -
+            // atma other
+            (data.atma_total.aggregate.sum.total -
+              data.atma_hts.aggregate.sum.total -
+              data.atma_hscs.aggregate.sum.total -
+              data.atma_hcs.aggregate.sum.total)) /
+            1e8
+        ),
+      }
+    })
   }
 }

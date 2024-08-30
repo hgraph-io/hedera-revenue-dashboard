@@ -6,10 +6,8 @@ let state = {
   income: {},
 }
 
-// helpful to see data used in the console
-window.state = state
-
 function updateUI() {
+  console.log(state)
   const period = state.period
   const prefix = state.filter ? 'not_atma_' : ''
 

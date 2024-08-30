@@ -28,7 +28,7 @@ async function query(query, variables) {
    * https://github.com/hgraph-io/sdk/blob/90b2759b5aaaf7a05d3daa1601569279344ab2d6/src/client/index.ts#L20
    */
   const json = await response.json()
-  // console.log(JSON.stringify(json, null, 2))
+  console.log(JSON.stringify(json, null, 2))
   return json.data
 }
 
