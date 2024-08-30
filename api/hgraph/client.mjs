@@ -4,8 +4,6 @@
 
 import Deposits from './queries/Deposits.mjs'
 import TransactionFees from './queries/TransactionFees.mjs'
-import TransactionFeesAllTime from './queries/TransactionFeesAllTime.mjs'
-import TransactionFeesLastHour from './queries/TransactionFeesLastHour.mjs'
 import TransactionFeesByService from './queries/TransactionFeesByService.mjs'
 
 async function query(query, variables) {
@@ -37,7 +35,5 @@ export default {
   query,
   Deposits,
   TransactionFees,
-  TransactionFeesAllTime,
-  TransactionFeesLastHour,
   TransactionFeesByService,
 }
