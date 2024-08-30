@@ -4,6 +4,11 @@ export default {
   week: 7 * 24,
   day: 1 * 24,
   hour: 1,
+  lastFullHour() {
+    const date = new Date()
+    date.setMinutes(0) // set to bottom of the hour
+    return date.toISOString()
+  },
 }
 // quarter: {
 //   startDate: new Date(date.getFullYear(), previousQuarter * 3 - 3, 1)

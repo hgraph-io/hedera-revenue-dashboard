@@ -1,52 +1,80 @@
 export default `
-query TransactionFees($limit: Int, $offset: Int) {
+query TransactionFees($limit: Int, $end_date: timestamp!) {
   all: ecosystem_metric_aggregate(
-    where: {name: {_eq: "transaction_fees"}, period: {_eq: "hour"}}
+    where: {name: {_eq: "transaction_fees"}, period: {_eq: "hour"}, end_date: {_lte: $end_date}}
     order_by: {start_date: desc}
     limit: $limit
-    # Do not count most recent hour as it is not a full hour yet
-    offset: 1
   ) {
     aggregate {
       sum {
         total
+      }
+      max {
+        start_date
+        end_date
+      }
+      min {
+        start_date
+        end_date
       }
     }
   }
   atma: ecosystem_metric_aggregate(
-    where: {name: {_eq: "atma_transaction_fees"}, period: {_eq: "hour"}}
+    where: {name: {_eq: "atma_transaction_fees"}, period: {_eq: "hour"}, end_date: {_lte: $end_date}}
     order_by: {start_date: desc}
     limit: $limit
-    # Do not count most recent hour as it is not a full hour yet
-    offset: 1
   ) {
     aggregate {
       sum {
         total
+      }
+      max {
+        start_date
+        end_date
+      }
+      min {
+        start_date
+        end_date
       }
     }
   }
   last_all: ecosystem_metric_aggregate(
-    where: {name: {_eq: "transaction_fees"}, period: {_eq: "hour"}}
+    where: {name: {_eq: "transaction_fees"}, period: {_eq: "hour"}, end_date: {_lte: $end_date}}
     order_by: {start_date: desc}
     limit: $limit
-    offset: $offset
+    offset: $limit
   ) {
     aggregate {
       sum {
         total
       }
+      max {
+        start_date
+        end_date
+      }
+      min {
+        start_date
+        end_date
+      }
     }
   }
   last_atma: ecosystem_metric_aggregate(
-    where: {name: {_eq: "atma_transaction_fees"}, period: {_eq: "hour"}}
+    where: {name: {_eq: "atma_transaction_fees"}, period: {_eq: "hour"}, end_date: {_lte: $end_date}}
     order_by: {start_date: desc}
     limit: $limit
-    offset: $offset
+    offset: $limit
   ) {
     aggregate {
       sum {
         total
+      }
+      max {
+        start_date
+        end_date
+      }
+      min {
+        start_date
+        end_date
       }
     }
   }
