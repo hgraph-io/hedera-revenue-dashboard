@@ -16,7 +16,6 @@ export default (offset = 1) => ({
     }
   },
   get year() {
-    console.log('hhhhh')
     return this.getDates(365 * 24 * 60 * 60 * 1000)
   },
   get quarter() {
@@ -24,8 +23,6 @@ export default (offset = 1) => ({
     const previousQuarter = Math.floor((latestHour.getMonth() + 3) / (3 * this.offset))
     const end_date = new Date(latestHour.getFullYear(), previousQuarter * 3 - 3, 1)
     const start_date = new Date(latestHour.getFullYear(), previousQuarter * 3 - 6, 1)
-    console.log('quarter')
-    console.log(this.offset, start_date.toISOString(), end_date.toISOString())
     return {
       start_date: start_date.toISOString(),
       end_date: end_date.toISOString(),
@@ -48,8 +45,6 @@ export default (offset = 1) => ({
     // offset by 10 minutes to give time for calculations on the backend, in the future we may run calculations more frequently
     const date = new Date(new Date() - 10 * 60 * 1000)
     date.setMinutes(0, 0, 0) // set to bottom of the hour
-    console.log('latestDate')
-    console.log(date)
     return date
   },
 })

@@ -7,7 +7,6 @@ let state = {
 }
 
 function updateUI() {
-  console.log(state)
   const period = state.period
   const prefix = state.filter ? 'not_atma_' : ''
 

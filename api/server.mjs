@@ -16,12 +16,9 @@ let state = {
   income: {},
 }
 
-// TODO: wait for initial state load
-
-// refresh data every hour
-// TODO: should refresh at the top of the hour
+// refresh data every 5 minutes
 main(state)
-setInterval(() => main(state), 1000 * 60 * 60)
+setInterval(() => main(state), 5 * 60 * 1000)
 
 const server = http.createServer((request, response) => {
   if (request.url !== '/data.json') {
@@ -32,8 +29,7 @@ const server = http.createServer((request, response) => {
 
   response.statusCode = 200
   response.setHeader('Content-Type', 'application/json')
-  // TODO: dynamically set cache time based on time until next refresh
-  response.setHeader('Cache-Control', '3600')
+  response.setHeader('Cache-Control', '300')
   response.setHeader('Access-Control-Allow-Origin', '*')
   response.end(JSON.stringify(state))
 })
