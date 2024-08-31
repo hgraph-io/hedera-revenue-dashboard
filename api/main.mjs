@@ -10,20 +10,20 @@ export default function main(state) {
   for (const period of ['hour', 'day', 'week', 'month', 'year', 'all']) {
     // for (const period of ['hour']) {
     // Transaction fees
-    // hgraph.query(hgraph.TransactionFees, dates[period]).then((data) => {
-    //   state[period] = {
-    //     all: Math.floor(data.all.aggregate.sum.total / 1e8),
-    //     not_atma: Math.floor(
-    //       (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8
-    //     ),
-    //     last: {
-    //       all: Math.floor(data.last_all.aggregate.sum.total / 1e8),
-    //       not_atma: Math.floor(
-    //         (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8
-    //       ),
-    //     },
-    //   }
-    // })
+    hgraph.query(hgraph.TransactionFees, dates[period]).then((data) => {
+      state[period] = {
+        all: Math.floor(data.all.aggregate.sum.total / 1e8),
+        not_atma: Math.floor(
+          (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8
+        ),
+        // last: {
+        //   all: Math.floor(data.last_all.aggregate.sum.total / 1e8),
+        //   not_atma: Math.floor(
+        //     (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8
+        //   ),
+        // },
+      }
+    })
     //  Node deposits
     hgraph.query(hgraph.Deposits, dates[period]).then((data) => {
       state.deposits[period] = {
