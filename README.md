@@ -132,7 +132,7 @@ npx serve public
 
 - This command uses `npx` to run the `serve` package, which serves the `public` directory as a static website.
 - Once the server is running, open your browser and go to the URL provided (usually [http://localhost:3000](http://localhost:3000)).
-- The frontend tests the `location.hostname` in the browser and serves data from `localhost:3001` if the hostname is `localhost`. See [./public](./public)
+- The frontend tests the `location.hostname` in the browser and serves data from `localhost:3001` if the hostname is `localhost`. See [./public](./public).
 
 ```javascript
 const response = await fetch(
