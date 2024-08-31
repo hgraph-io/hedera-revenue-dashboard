@@ -99,9 +99,6 @@ const hcs = [
 
 // The similar operator is a sql regex match, to use a POSIX regex match we would use _regex instead
 // The like operator is much faster, use when possible
-console.log('hts:', hts)
-console.log('hcs:', hcs)
-///THE ISSUE IS THAT WE CANNOT USE A LIMIT HERE BECAUSE OF CONDITIONAL LOGIC
 export default `
 query TransactionFeesByService($start_date: timestamp!, $end_date: timestamp!) {
   total: ecosystem_metric_aggregate(

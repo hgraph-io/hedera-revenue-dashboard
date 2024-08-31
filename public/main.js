@@ -11,62 +11,63 @@ function updateUI() {
   const period = state.period
   const prefix = state.filter ? 'not_atma_' : ''
 
-  const hbarElement = document.getElementById('total-hbar')
-  const changeElement = document.getElementById('change')
-  const currentValue = state[period][state.filter ? 'not_atma' : 'all']
-  const previousValue = state[period].last[state.filter ? 'not_atma' : 'all']
-  const change = (currentValue / previousValue - 1) * 100
+  // const hbarElement = document.getElementById('total-hbar')
+  // const changeElement = document.getElementById('change')
+  // const currentValue = state[period][state.filter ? 'not_atma' : 'all']
+  // // const previousValue = state[period].last[state.filter ? 'not_atma' : 'all']
+  // const previousValue = state[period][state.filter ? 'not_atma' : 'all']
+  // const change = (currentValue / previousValue - 1) * 100
 
-  // Round the change to 1 decimal place
-  const roundedChange = change.toFixed(1)
+  // // Round the change to 1 decimal place
+  // const roundedChange = change.toFixed(1)
 
-  // set initial value
-  hbarElement.innerText = currentValue.toLocaleString()
+  // // set initial value
+  // hbarElement.innerText = currentValue.toLocaleString()
 
-  // update change text
-  if (change) {
-    changeElement.innerText = `${roundedChange}% ${change >= 0 ? '↑' : '↓'}`
+  // // update change text
+  // if (change) {
+  //   changeElement.innerText = `${roundedChange}% ${change >= 0 ? '↑' : '↓'}`
 
-    // remove existing classes
-    changeElement.classList.remove('up', 'down')
+  //   // remove existing classes
+  //   changeElement.classList.remove('up', 'down')
 
-    // add the appropriate class
-    if (change >= 0) {
-      changeElement.classList.add('up')
-    } else {
-      changeElement.classList.add('down')
-    }
-  } else {
-    changeElement.innerText = ''
-    // remove any existing up or down classes if there's no change
-    changeElement.classList.remove('up', 'down')
-  }
+  //   // add the appropriate class
+  //   if (change >= 0) {
+  //     changeElement.classList.add('up')
+  //   } else {
+  //     changeElement.classList.add('down')
+  //   }
+  // } else {
+  //   changeElement.innerText = ''
+  //   // remove any existing up or down classes if there's no change
+  //   changeElement.classList.remove('up', 'down')
+  // }
 
   /*
    * Deposits
    */
-  const totalDeposits =
-    state.deposits[period][prefix + 'node'] +
-    state.deposits[period][prefix + 'staking'] +
-    state.deposits[period][prefix + 'treasury']
-  // node ui
-  const nodeDepositsElement = document.getElementById('node-deposits')
-  nodeDepositsElement.innerText =
-    state.deposits[period][prefix + 'node'].toLocaleString() + ' ℏ'
-  nodeDepositsElement.previousElementSibling.innerText =
-    Math.round((state.deposits[period][prefix + 'node'] / totalDeposits) * 100) + '%'
-  // staking ui
-  const stakingDepositsElement = document.getElementById('staking-deposits')
-  stakingDepositsElement.innerText =
-    state.deposits[period][prefix + 'staking'].toLocaleString() + ' ℏ'
-  stakingDepositsElement.previousElementSibling.innerText =
-    Math.round((state.deposits[period][prefix + 'staking'] / totalDeposits) * 100) + '%'
-  // treasury ui
-  const treasuryDepositsElement = document.getElementById('treasury-deposits')
-  treasuryDepositsElement.innerText =
-    state.deposits[period][prefix + 'treasury'].toLocaleString() + ' ℏ'
-  treasuryDepositsElement.previousElementSibling.innerText =
-    Math.round((state.deposits[period][prefix + 'treasury'] / totalDeposits) * 100) + '%'
+  // const totalDeposits =
+  //   state.deposits[period][prefix + 'node'] +
+  //   state.deposits[period][prefix + 'staking'] +
+  //   state.deposits[period][prefix + 'treasury']
+  // // node ui
+  // const nodeDepositsElement = document.getElementById('node-deposits')
+  // nodeDepositsElement.innerText =
+  //   state.deposits[period][prefix + 'node'].toLocaleString() + ' ℏ'
+  // nodeDepositsElement.previousElementSibling.innerText =
+  //   Math.round((state.deposits[period][prefix + 'node'] / totalDeposits) * 100) + '%'
+  // // staking ui
+  // const stakingDepositsElement = document.getElementById('staking-deposits')
+  // stakingDepositsElement.innerText =
+  //   state.deposits[period][prefix + 'staking'].toLocaleString() + ' ℏ'
+  // stakingDepositsElement.previousElementSibling.innerText =
+  //   Math.round((state.deposits[period][prefix + 'staking'] / totalDeposits) * 100) + '%'
+  // // treasury ui
+  // const treasuryDepositsElement = document.getElementById('treasury-deposits')
+  // treasuryDepositsElement.innerText =
+  //   state.deposits[period][prefix + 'treasury'].toLocaleString() + ' ℏ'
+  // treasuryDepositsElement.previousElementSibling.innerText =
+  //   Math.round((state.deposits[period][prefix + 'treasury'] / totalDeposits) * 100) + '%'
 
   /*
    * Income

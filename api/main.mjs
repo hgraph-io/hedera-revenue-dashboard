@@ -7,8 +7,8 @@ import dates from './hgraph/dates.mjs'
  */
 export default function main(state) {
   console.log(new Date(), 'Refreshing data...')
-  // for (const period of ['hour', 'day', 'week', 'month', 'year', 'all']) {
-  for (const period of ['hour']) {
+  for (const period of ['hour', 'day', 'week', 'month', 'year', 'all']) {
+    // for (const period of ['hour']) {
     // Transaction fees
     // hgraph.query(hgraph.TransactionFees, dates[period]).then((data) => {
     //   state[period] = {
@@ -25,30 +25,24 @@ export default function main(state) {
     //   }
     // })
     //  Node deposits
-    // hgraph
-    //   .query(hgraph.Deposits, {limit: hours[period], end_date: hours.lastFullHour()})
-    //   .then((data) => {
-    //     state.deposits[period] = {
-    //       node: Math.floor(data.node.aggregate.sum.total / 1e8),
-    //       staking: Math.floor(data.staking.aggregate.sum.total / 1e8),
-    //       treasury: Math.floor(data.treasury.aggregate.sum.total / 1e8),
-    //       not_atma_node: Math.floor(
-    //         (data.node.aggregate.sum.total - data.atma_node.aggregate.sum.total) / 1e8
-    //       ),
-    //       not_atma_staking: Math.floor(
-    //         (data.staking.aggregate.sum.total - data.atma_staking.aggregate.sum.total) / 1e8
-    //       ),
-    //       not_atma_treasury: Math.floor(
-    //         (data.treasury.aggregate.sum.total - data.atma_treasury.aggregate.sum.total) / 1e8
-    //       ),
-    //     }
-    //   })
+    // hgraph.query(hgraph.Deposits, dates[period]).then((data) => {
+    //   state.deposits[period] = {
+    //     node: Math.floor(data.node.aggregate.sum.total / 1e8),
+    //     staking: Math.floor(data.staking.aggregate.sum.total / 1e8),
+    //     treasury: Math.floor(data.treasury.aggregate.sum.total / 1e8),
+    //     not_atma_node: Math.floor(
+    //       (data.node.aggregate.sum.total - data.atma_node.aggregate.sum.total) / 1e8
+    //     ),
+    //     not_atma_staking: Math.floor(
+    //       (data.staking.aggregate.sum.total - data.atma_staking.aggregate.sum.total) / 1e8
+    //     ),
+    //     not_atma_treasury: Math.floor(
+    //       (data.treasury.aggregate.sum.total - data.atma_treasury.aggregate.sum.total) / 1e8
+    //     ),
+    //   }
+    // })
     // Income
     hgraph.query(hgraph.TransactionFeesByService, dates[period]).then((data) => {
-      if (period === 'hour') {
-        // console.log(hgraph.TransactionFeesByService, hours[period], hours.lastFullHour())
-        // console.log(JSON.stringify(data, null, 2))
-      }
       state.income[period] = {
         total: Math.floor(data.total.aggregate.sum.total / 1e8),
         hts: Math.floor(data.hts.aggregate.sum.total / 1e8),
