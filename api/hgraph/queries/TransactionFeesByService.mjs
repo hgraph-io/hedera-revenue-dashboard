@@ -100,79 +100,182 @@ const hcs = [
 // The similar operator is a sql regex match, to use a POSIX regex match we would use _regex instead
 // The like operator is much faster, use when possible
 export default `
-query TransactionFeesByService(
-	$startDate: timestamp,
-){
+query TransactionFeesByService($start_date: timestamp!, $end_date: timestamp!) {
   total: ecosystem_metric_aggregate(
-    where: {period: {_eq: "hour"}, name: {_like: "transaction_type_%_fees"}, start_date: {_gte: $startDate}}
+    where: {
+      name: {_like: "transaction_type_%_fees"},
+      period: {_eq: "hour"},
+      start_date: {_gte: $start_date},
+      end_date: {_lte: $end_date}
+    }
   ) {
     aggregate {
       sum {
         total
+      }
+      max {
+        start_date
+        end_date
+      }
+      min {
+        start_date
+        end_date
       }
     }
   }
   atma_total: ecosystem_metric_aggregate(
-    where: {period: {_eq: "hour"}, name: {_like: "atma_transaction_type_%_fees"}, start_date: {_gte: $startDate}}
+    where: {
+      name: {_like: "atma_transaction_type_%_fees"},
+      period: {_eq: "hour"},
+      start_date: {_gte: $start_date},
+      end_date: {_lte: $end_date}
+    }
   ) {
     aggregate {
       sum {
         total
+      }
+      max {
+        start_date
+        end_date
+      }
+      min {
+        start_date
+        end_date
       }
     }
   }
   hts: ecosystem_metric_aggregate(
-    where: {period: {_eq: "hour"}, name: {_regex: "^transaction_type_(?:${hts})_fees$"}, start_date: {_gte: $startDate}}
+    where: {
+      name: {_regex: "^transaction_type_(?:${hts})_fees$"},
+      period: {_eq: "hour"},
+      start_date: {_gte: $start_date},
+      end_date: {_lte: $end_date}
+    }
   ) {
     aggregate {
       sum {
         total
+      }
+      max {
+        start_date
+        end_date
+      }
+      min {
+        start_date
+        end_date
       }
     }
   }
   atma_hts: ecosystem_metric_aggregate(
-    where: {period: {_eq: "hour"}, name: {_regex: "^atma_transaction_type_(?:${hts})_fees$"}, start_date: {_gte: $startDate}}
+    where: {
+      name: {_regex: "^atma_transaction_type_(?:${hts})_fees$"},
+      period: {_eq: "hour"},
+      start_date: {_gte: $start_date},
+      end_date: {_lte: $end_date}
+    }
   ) {
     aggregate {
       sum {
         total
+      }
+      max {
+        start_date
+        end_date
+      }
+      min {
+        start_date
+        end_date
       }
     }
   }
   hscs: ecosystem_metric_aggregate(
-    where: {period: {_eq: "hour"}, name: {_regex: "^transaction_type_(?:${hscs})_fees$"}, start_date: {_gte: $startDate}}
+    where: {
+      name: {_regex: "^transaction_type_(?:${hscs})_fees$"},
+      period: {_eq: "hour"},
+      start_date: {_gte: $start_date},
+      end_date: {_lte: $end_date}
+    }
   ) {
     aggregate {
       sum {
         total
+      }
+      max {
+        start_date
+        end_date
+      }
+      min {
+        start_date
+        end_date
       }
     }
   }
   atma_hscs: ecosystem_metric_aggregate(
-    where: {period: {_eq: "hour"}, name: {_regex: "^atma_transaction_type_(?:${hscs})_fees$"}, start_date: {_gte: $startDate}}
+    where: {
+      name: {_regex: "^atma_transaction_type_(?:${hscs})_fees$"},
+      period: {_eq: "hour"},
+      start_date: {_gte: $start_date},
+      end_date: {_lte: $end_date}
+    }
   ) {
     aggregate {
       sum {
         total
+      }
+      max {
+        start_date
+        end_date
+      }
+      min {
+        start_date
+        end_date
       }
     }
   }
   hcs: ecosystem_metric_aggregate(
-    where: {period: {_eq: "hour"}, name: {_regex: "^transaction_type_(?:${hcs})_fees$"}, start_date: {_gte: $startDate}}
+    where: {
+      name: {_regex: "^transaction_type_(?:${hcs})_fees$"},
+      period: {_eq: "hour"},
+      start_date: {_gte: $start_date},
+      end_date: {_lte: $end_date}
+    }
   ) {
     aggregate {
       sum {
         total
+      }
+      max {
+        start_date
+        end_date
+      }
+      min {
+        start_date
+        end_date
       }
     }
   }
   atma_hcs: ecosystem_metric_aggregate(
-    where: {period: {_eq: "hour"}, name: {_regex: "^atma_transaction_type_(?:${hcs})_fees$"}, start_date: {_gte: $startDate}}
+    where: {
+      name: {_regex: "^atma_transaction_type_(?:${hcs})_fees$"},
+      period: {_eq: "hour"},
+      start_date: {_gte: $start_date},
+      end_date: {_lte: $end_date}
+    }
   ) {
     aggregate {
       sum {
         total
       }
+      max {
+        start_date
+        end_date
+      }
+      min {
+        start_date
+        end_date
+      }
     }
   }
-}`
+}
+`

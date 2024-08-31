@@ -4,8 +4,6 @@
 
 import Deposits from './queries/Deposits.mjs'
 import TransactionFees from './queries/TransactionFees.mjs'
-import TransactionFeesAllTime from './queries/TransactionFeesAllTime.mjs'
-import TransactionFeesLastHour from './queries/TransactionFeesLastHour.mjs'
 import TransactionFeesByService from './queries/TransactionFeesByService.mjs'
 
 async function query(query, variables) {
@@ -30,6 +28,7 @@ async function query(query, variables) {
    * https://github.com/hgraph-io/sdk/blob/90b2759b5aaaf7a05d3daa1601569279344ab2d6/src/client/index.ts#L20
    */
   const json = await response.json()
+  if (!json.data) console.error(JSON.stringify(json, null, 2))
   return json.data
 }
 
@@ -37,7 +36,5 @@ export default {
   query,
   Deposits,
   TransactionFees,
-  TransactionFeesAllTime,
-  TransactionFeesLastHour,
   TransactionFeesByService,
 }

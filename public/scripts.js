@@ -4,21 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
   updateTime() // Call the function to start updating the time
 })
 
-// /*
-//  * When filter button is toggled, update the total HBAR value displayed to include or exclude ATMA fees
-//  */
-// document.querySelector('#atma-filter').onchange = function (e) {
-//   document.getElementById('total-hbar').innerText = e.target.checked
-//     ? (window.hgraph.hour.all - window.hgraph.hour.atma).toLocaleString('en-us')
-//     : window.hgraph.hour.atma.toLocaleString('en-us').toLocaleString('en-us')
-// }
-// /*
-//  * Period dropdown
-//  */
-// document.querySelector('#timeframe').onchange = function (e) {
-//   alert(e.target.value)
-// }
-
 function displayDate() {
   const currentDate = new Date()
   const month = (currentDate.getUTCMonth() + 1).toString().padStart(2, '0')
@@ -105,7 +90,7 @@ function initHbarUsdConversion() {
     const usdRate = await fetchHbarToUsdRate()
     if (usdRate !== null) {
       const totalUsd = hbarTotal * usdRate
-      usdConvertElement.textContent = `$${totalUsd.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+      usdConvertElement.textContent = `$${totalUsd.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
     }
   }
 
@@ -125,4 +110,3 @@ function initHbarUsdConversion() {
     updateUsdConversion()
   }
 }
-

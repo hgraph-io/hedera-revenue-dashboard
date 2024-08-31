@@ -1,56 +1,59 @@
-// Need to be careful to create new date object for calculations that utilize set methods
-const date = new Date()
-const previousQuarter = Math.floor(date.getMonth() / 3)
-
-export default {
-  all: {
-    startDate: '2019-09-13',
-    previousStartDate: '2019-09-13',
-  },
-  year: {
-    startDate: new Date(new Date(date).setFullYear(date.getFullYear() - 1))
-      .toISOString()
-      .split('T')[0],
-    previousStartDate: new Date(new Date(date).setFullYear(date.getFullYear() - 2))
-      .toISOString()
-      .split('T')[0],
-  },
-  quarter: {
-    startDate: new Date(date.getFullYear(), previousQuarter * 3 - 3, 1)
-      .toISOString()
-      .split('T')[0],
-    previousStartDate: new Date(date.getFullYear(), previousQuarter * 3 - 6, 1)
-      .toISOString()
-      .split('T')[0],
-  },
-  get month() {
-    const _date = new Date(date)
-    _date.setDate(0)
-    _date.setDate(1)
-    const startDate = _date.toISOString().split('T')[0]
-    _date.setDate(0)
-    _date.setDate(1)
-    const previousStartDate = _date.toISOString().split('T')[0]
+// set to 2 to get previous period
+export default (offset = 1) => ({
+  offset,
+  getDates: function (multiplier) {
+    const end_date = this.latestHour
     return {
-      startDate,
-      previousStartDate,
+      start_date: new Date(end_date - this.offset * multiplier).toISOString(),
+      end_date: new Date(end_date - (this.offset - 1) * multiplier).toISOString(),
     }
   },
-  week: {
-    startDate: new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-    previousStartDate: new Date(date.getTime() - 14 * 24 * 60 * 60 * 1000)
-      .toISOString()
-      .split('T')[0],
+  get all() {
+    const end_date = this.latestHour
+    return {
+      start_date: new Date(0).toISOString(),
+      end_date: end_date.toISOString(),
+    }
   },
-  day: {
-    startDate: new Date(date.getTime() - 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-    previousStartDate: new Date(date.getTime() - 48 * 60 * 60 * 1000)
-      .toISOString()
-      .split('T')[0],
+  get year() {
+    return this.getDates(365.25 * 24 * 60 * 60 * 1000) // 365.25 days to account for leap years
   },
-  hour: {
-    startDate: new Date(date.getTime() - 60 * 60 * 1000).toISOString().split(':')[0] + ':00:00',
-    previousStartDate:
-      new Date(date.getTime() - 60 * 2 * 60 * 1000).toISOString().split(':')[0] + ':00:00',
+  get quarter() {
+    const latestHour = this.latestHour
+    const previousQuarter = Math.floor((latestHour.getMonth() + 3) / 3)
+    const start_date = new Date(
+      latestHour.getFullYear(),
+      previousQuarter * 3 - (3 * this.offset + 3),
+      1
+    )
+    const end_date = new Date(
+      latestHour.getFullYear(),
+      previousQuarter * 3 - 3 * this.offset,
+      1
+    )
+
+    return {
+      start_date: start_date.toISOString().split('T')[0],
+      end_date: end_date.toISOString().split('T')[0],
+    }
   },
-}
+  get month() {
+    return this.getDates(30 * 24 * 60 * 60 * 1000)
+  },
+  get week() {
+    return this.getDates(7 * 24 * 60 * 60 * 1000)
+  },
+  get day() {
+    return this.getDates(24 * 60 * 60 * 1000)
+  },
+  get hour() {
+    return this.getDates(60 * 60 * 1000)
+  },
+
+  get latestHour() {
+    // offset by 10 minutes to give time for calculations on the backend, in the future we may run calculations more frequently
+    const date = new Date(new Date() - 10 * 60 * 1000)
+    date.setMinutes(0, 0, 0) // set to bottom of the hour
+    return date
+  },
+})

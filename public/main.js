@@ -6,17 +6,15 @@ let state = {
   income: {},
 }
 
-// helpful to see data used in the console
-window.state = state
-
 function updateUI() {
+  // console.log(state)
   const period = state.period
   const prefix = state.filter ? 'not_atma_' : ''
 
   const hbarElement = document.getElementById('total-hbar')
   const changeElement = document.getElementById('change')
   const currentValue = state[period][state.filter ? 'not_atma' : 'all']
-  const previousValue = state[period].last[state.filter ? 'not_atma' : 'all']
+  const previousValue = state[period].previous[state.filter ? 'not_atma' : 'all']
   const change = (currentValue / previousValue - 1) * 100
 
   // Round the change to 1 decimal place
