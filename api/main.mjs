@@ -9,7 +9,9 @@ export default function main(state) {
   console.log(new Date(), 'Refreshing data...')
   const current = dates()
   const previous = dates(2)
-  for (const period of ['hour', 'day', 'week', 'month', 'year', 'all']) {
+  // console.log({...current})
+  // console.log({...previous})
+  for (const period of ['hour', 'day', 'week', 'month', 'quarter', 'year', 'all']) {
     // Transaction fees
     hgraph.query(hgraph.TransactionFees, current[period]).then((data) => {
       state[period] = {

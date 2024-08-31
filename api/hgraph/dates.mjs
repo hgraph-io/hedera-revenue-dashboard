@@ -16,16 +16,25 @@ export default (offset = 1) => ({
     }
   },
   get year() {
-    return this.getDates(365 * 24 * 60 * 60 * 1000)
+    return this.getDates(365.25 * 24 * 60 * 60 * 1000) // 365.25 days to account for leap years
   },
   get quarter() {
     const latestHour = this.latestHour
-    const previousQuarter = Math.floor((latestHour.getMonth() + 3) / (3 * this.offset))
-    const end_date = new Date(latestHour.getFullYear(), previousQuarter * 3 - 3, 1)
-    const start_date = new Date(latestHour.getFullYear(), previousQuarter * 3 - 6, 1)
+    const previousQuarter = Math.floor((latestHour.getMonth() + 3) / 3)
+    const start_date = new Date(
+      latestHour.getFullYear(),
+      previousQuarter * 3 - (3 * this.offset + 3),
+      1
+    )
+    const end_date = new Date(
+      latestHour.getFullYear(),
+      previousQuarter * 3 - 3 * this.offset,
+      1
+    )
+
     return {
-      start_date: start_date.toISOString(),
-      end_date: end_date.toISOString(),
+      start_date: start_date.toISOString().split('T')[0],
+      end_date: end_date.toISOString().split('T')[0],
     }
   },
   get month() {

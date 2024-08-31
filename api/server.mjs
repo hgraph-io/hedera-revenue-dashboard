@@ -16,9 +16,9 @@ let state = {
   income: {},
 }
 
-// refresh data every 5 minutes
+// refresh data every 10 minutes
 main(state)
-setInterval(() => main(state), 5 * 60 * 1000)
+setInterval(() => main(state), 10 * 60 * 1000)
 
 const server = http.createServer((request, response) => {
   if (request.url !== '/data.json') {
