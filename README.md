@@ -14,7 +14,7 @@ A core consideration is that Hedera payer account `0.0.1459478` (attributed to A
 
 This revenue dashboard is a demonstration of Hgraph's expertise in building on Hedera’s technology, as well as a powerful public tool for the Hedera community. It utilizes the "read" side of the Hedera network through mirror nodes and Hgraph's infrastructure. Mirror nodes are crucial for queries, analytics, audit support and monitoring. Without mirror nodes data stored on the network stored on the network would not be easily accessible.
 
-A most important aspect of this tool is simplicity. Rather than overwhelm users with an influx of complicated information, we present the ecosystem with a simple yet powerful tool so we can all have better visibility into the health and growth of the Hedera network.
+An important aspect of this tool is simplicity. Rather than overwhelm users with an influx of complicated information, we present the ecosystem with a simple yet powerful tool so we can all have better visibility into the health and growth of the Hedera network.
 
 We are running a cron job every hour that runs the sql procedures in [./sql](./sql). We display revenue information up to last full hour.
 
