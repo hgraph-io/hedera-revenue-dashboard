@@ -200,7 +200,7 @@ _or_
 - Submit an issue with your ideas
 
 Tip: To run prettier on html and js files run:
-`npx prettier 'public/**/*.(html|js)' --write --config .prettierrc`
+`npx prettier './**/*.(html|js|mjs|css)' --write --config .prettierrc`
 
 ## Roadmap
 

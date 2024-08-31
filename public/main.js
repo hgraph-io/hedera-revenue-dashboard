@@ -46,28 +46,28 @@ function updateUI() {
   /*
    * Deposits
    */
-  // const totalDeposits =
-  //   state.deposits[period][prefix + 'node'] +
-  //   state.deposits[period][prefix + 'staking'] +
-  //   state.deposits[period][prefix + 'treasury']
-  // // node ui
-  // const nodeDepositsElement = document.getElementById('node-deposits')
-  // nodeDepositsElement.innerText =
-  //   state.deposits[period][prefix + 'node'].toLocaleString() + ' ℏ'
-  // nodeDepositsElement.previousElementSibling.innerText =
-  //   Math.round((state.deposits[period][prefix + 'node'] / totalDeposits) * 100) + '%'
-  // // staking ui
-  // const stakingDepositsElement = document.getElementById('staking-deposits')
-  // stakingDepositsElement.innerText =
-  //   state.deposits[period][prefix + 'staking'].toLocaleString() + ' ℏ'
-  // stakingDepositsElement.previousElementSibling.innerText =
-  //   Math.round((state.deposits[period][prefix + 'staking'] / totalDeposits) * 100) + '%'
-  // // treasury ui
-  // const treasuryDepositsElement = document.getElementById('treasury-deposits')
-  // treasuryDepositsElement.innerText =
-  //   state.deposits[period][prefix + 'treasury'].toLocaleString() + ' ℏ'
-  // treasuryDepositsElement.previousElementSibling.innerText =
-  //   Math.round((state.deposits[period][prefix + 'treasury'] / totalDeposits) * 100) + '%'
+  const totalDeposits =
+    state.deposits[period][prefix + 'node'] +
+    state.deposits[period][prefix + 'staking'] +
+    state.deposits[period][prefix + 'treasury']
+  // node ui
+  const nodeDepositsElement = document.getElementById('node-deposits')
+  nodeDepositsElement.innerText =
+    state.deposits[period][prefix + 'node'].toLocaleString() + ' ℏ'
+  nodeDepositsElement.previousElementSibling.innerText =
+    Math.round((state.deposits[period][prefix + 'node'] / totalDeposits) * 100) + '%'
+  // staking ui
+  const stakingDepositsElement = document.getElementById('staking-deposits')
+  stakingDepositsElement.innerText =
+    state.deposits[period][prefix + 'staking'].toLocaleString() + ' ℏ'
+  stakingDepositsElement.previousElementSibling.innerText =
+    Math.round((state.deposits[period][prefix + 'staking'] / totalDeposits) * 100) + '%'
+  // treasury ui
+  const treasuryDepositsElement = document.getElementById('treasury-deposits')
+  treasuryDepositsElement.innerText =
+    state.deposits[period][prefix + 'treasury'].toLocaleString() + ' ℏ'
+  treasuryDepositsElement.previousElementSibling.innerText =
+    Math.round((state.deposits[period][prefix + 'treasury'] / totalDeposits) * 100) + '%'
 
   /*
    * Income

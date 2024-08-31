@@ -25,22 +25,22 @@ export default function main(state) {
     //   }
     // })
     //  Node deposits
-    // hgraph.query(hgraph.Deposits, dates[period]).then((data) => {
-    //   state.deposits[period] = {
-    //     node: Math.floor(data.node.aggregate.sum.total / 1e8),
-    //     staking: Math.floor(data.staking.aggregate.sum.total / 1e8),
-    //     treasury: Math.floor(data.treasury.aggregate.sum.total / 1e8),
-    //     not_atma_node: Math.floor(
-    //       (data.node.aggregate.sum.total - data.atma_node.aggregate.sum.total) / 1e8
-    //     ),
-    //     not_atma_staking: Math.floor(
-    //       (data.staking.aggregate.sum.total - data.atma_staking.aggregate.sum.total) / 1e8
-    //     ),
-    //     not_atma_treasury: Math.floor(
-    //       (data.treasury.aggregate.sum.total - data.atma_treasury.aggregate.sum.total) / 1e8
-    //     ),
-    //   }
-    // })
+    hgraph.query(hgraph.Deposits, dates[period]).then((data) => {
+      state.deposits[period] = {
+        node: Math.floor(data.node.aggregate.sum.total / 1e8),
+        staking: Math.floor(data.staking.aggregate.sum.total / 1e8),
+        treasury: Math.floor(data.treasury.aggregate.sum.total / 1e8),
+        not_atma_node: Math.floor(
+          (data.node.aggregate.sum.total - data.atma_node.aggregate.sum.total) / 1e8
+        ),
+        not_atma_staking: Math.floor(
+          (data.staking.aggregate.sum.total - data.atma_staking.aggregate.sum.total) / 1e8
+        ),
+        not_atma_treasury: Math.floor(
+          (data.treasury.aggregate.sum.total - data.atma_treasury.aggregate.sum.total) / 1e8
+        ),
+      }
+    })
     // Income
     hgraph.query(hgraph.TransactionFeesByService, dates[period]).then((data) => {
       state.income[period] = {
