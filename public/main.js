@@ -14,8 +14,7 @@ function updateUI() {
   const hbarElement = document.getElementById('total-hbar')
   const changeElement = document.getElementById('change')
   const currentValue = state[period][state.filter ? 'not_atma' : 'all']
-  // const previousValue = state[period].last[state.filter ? 'not_atma' : 'all']
-  const previousValue = state[period][state.filter ? 'not_atma' : 'all']
+  const previousValue = state[period].last[state.filter ? 'not_atma' : 'all']
   const change = (currentValue / previousValue - 1) * 100
 
   // Round the change to 1 decimal place

@@ -7,25 +7,31 @@ import dates from './hgraph/dates.mjs'
  */
 export default function main(state) {
   console.log(new Date(), 'Refreshing data...')
+  const current = dates()
+  const previous = dates(2)
   for (const period of ['hour', 'day', 'week', 'month', 'year', 'all']) {
-    // for (const period of ['hour']) {
+    // Last period transaction fees
+    hgraph.query(hgraph.TransactionFees, previous[period]).then((data) => {
+      state[period].last = {
+        all: Math.floor(data.last_all.aggregate.sum.total / 1e8),
+        not_atma: Math.floor(
+          (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8
+        ),
+      }
+    })
     // Transaction fees
-    hgraph.query(hgraph.TransactionFees, dates[period]).then((data) => {
+    hgraph.query(hgraph.TransactionFees, current[period]).then((data) => {
       state[period] = {
         all: Math.floor(data.all.aggregate.sum.total / 1e8),
         not_atma: Math.floor(
           (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8
         ),
-        // last: {
-        //   all: Math.floor(data.last_all.aggregate.sum.total / 1e8),
-        //   not_atma: Math.floor(
-        //     (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8
-        //   ),
-        // },
       }
     })
+  console.log(current)
+  console.log(previous)
     //  Node deposits
-    hgraph.query(hgraph.Deposits, dates[period]).then((data) => {
+    hgraph.query(hgraph.Deposits, current[period]).then((data) => {
       state.deposits[period] = {
         node: Math.floor(data.node.aggregate.sum.total / 1e8),
         staking: Math.floor(data.staking.aggregate.sum.total / 1e8),
@@ -42,7 +48,7 @@ export default function main(state) {
       }
     })
     // Income
-    hgraph.query(hgraph.TransactionFeesByService, dates[period]).then((data) => {
+    hgraph.query(hgraph.TransactionFeesByService, current[period]).then((data) => {
       state.income[period] = {
         total: Math.floor(data.total.aggregate.sum.total / 1e8),
         hts: Math.floor(data.hts.aggregate.sum.total / 1e8),
