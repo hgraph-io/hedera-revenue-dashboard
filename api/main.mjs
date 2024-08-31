@@ -10,26 +10,25 @@ export default function main(state) {
   const current = dates()
   const previous = dates(2)
   for (const period of ['hour', 'day', 'week', 'month', 'year', 'all']) {
-    // Last period transaction fees
-    hgraph.query(hgraph.TransactionFees, previous[period]).then((data) => {
-      state[period].last = {
-        all: Math.floor(data.last_all.aggregate.sum.total / 1e8),
-        not_atma: Math.floor(
-          (data.last_all.aggregate.sum.total - data.last_atma.aggregate.sum.total) / 1e8
-        ),
-      }
-    })
     // Transaction fees
     hgraph.query(hgraph.TransactionFees, current[period]).then((data) => {
       state[period] = {
+        ...state[period], // previous period might be already set
         all: Math.floor(data.all.aggregate.sum.total / 1e8),
         not_atma: Math.floor(
           (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8
         ),
       }
     })
-  console.log(current)
-  console.log(previous)
+    // Last period transaction fees
+    hgraph.query(hgraph.TransactionFees, previous[period]).then((data) => {
+      state[period].previous = {
+        all: Math.floor(data.all.aggregate.sum.total / 1e8),
+        not_atma: Math.floor(
+          (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8
+        ),
+      }
+    })
     //  Node deposits
     hgraph.query(hgraph.Deposits, current[period]).then((data) => {
       state.deposits[period] = {
