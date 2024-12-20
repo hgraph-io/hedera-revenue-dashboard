@@ -28,19 +28,17 @@ begin
 
 
 	-- loop through each hour
-	while start_timestamp < now()::timestamp9::bigint loop
+while start_timestamp < now()::timestamp9::bigint loop
 		raise notice 'timestamp: %', end_timestamp::timestamp9;
-		max_tx_fee = (select max(charged_tx_fee) from transaction where consensus_timestamp between start_timestamp and end_timestamp);
-		raise notice 'max_tx_fee: %', max_tx_fee;
-
 		-- get crypto transfer set
 		with deposits as (
-			select entity_id, payer_account_id, amount
-			from crypto_transfer
-			where consensus_timestamp between start_timestamp and end_timestamp
-			and amount > 0
-			and amount <= max_tx_fee
-			and entity_id = ANY('{98,800,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34}')
+			select transfer.entity_id,	transfer.payer_account_id, transfer.amount
+			from crypto_transfer as transfer 
+			join transaction on transfer.consensus_timestamp = transaction.consensus_timestamp
+			where transfer.consensus_timestamp between start_timestamp and end_timestamp
+			and transfer.amount > 0
+			and transfer.amount <= transaction.charged_tx_fee
+			and transfer.entity_id = ANY ('{98,800,801,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34}')
 		),
 		node_deposits as (
 			insert into ecosystem.metric (name, period, timestamp_range, total)
@@ -48,6 +46,7 @@ begin
 					case
 						when entity_id = 98 then 'treasury_account_deposits'
 						when entity_id = 800 then 'staking_account_deposits'
+						when entity_id = 801 then 'node_reward_account_deposits'
 						else 'node_' || entity_id || '_deposits'
 					end as name,
 					'hour' as period,
@@ -64,6 +63,7 @@ begin
 					case
 						when entity_id = 98 then 'atma_treasury_account_deposits'
 						when entity_id = 800 then 'atma_staking_account_deposits'
+						when entity_id = 801 then 'atma_node_reward_account_deposits'
 						else 'atma_node_' || entity_id || '_deposits'
 					end as name,
 					'hour' as period,

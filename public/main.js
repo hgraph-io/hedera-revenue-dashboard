@@ -48,6 +48,7 @@ function updateUI() {
   const totalDeposits =
     state.deposits[period][prefix + 'node'] +
     state.deposits[period][prefix + 'staking'] +
+    state.deposits[period][prefix + 'node_reward'] +
     state.deposits[period][prefix + 'treasury']
   // node ui
   const nodeDepositsElement = document.getElementById('node-deposits')
@@ -61,6 +62,12 @@ function updateUI() {
     state.deposits[period][prefix + 'staking'].toLocaleString() + ' ℏ'
   stakingDepositsElement.previousElementSibling.innerText =
     Math.round((state.deposits[period][prefix + 'staking'] / totalDeposits) * 100) + '%'
+  // node reward ui
+  const nodeRewardDepositsElement = document.getElementById('node-reward-deposits')
+  nodeRewardDepositsElement.innerText =
+    state.deposits[period][prefix + 'node_reward'].toLocaleString() + ' ℏ'
+  nodeRewardDepositsElement.previousElementSibling.innerText =
+    Math.round((state.deposits[period][prefix + 'node_reward'] / totalDeposits) * 100) + '%'
   // treasury ui
   const treasuryDepositsElement = document.getElementById('treasury-deposits')
   treasuryDepositsElement.innerText =

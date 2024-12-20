@@ -47,7 +47,8 @@ Hedera's revenue is calculated as follows:
 - Transactions are submitted to the Hedera mainnet
 - Each transaction has fees associated with it:
   - HBAR sent to consensus nodes ([link](https://hashscan.io/mainnet/nodes))
-  - HBAR sent to staking account `0.0.800`
+  - HBAR sent to staking reward account `0.0.800`
+  - HBAR sent to node reward account `0.0.801`
   - HBAR sent to Hedera treasury account `0.0.98`
 - Different transaction types, belonging to different network services, have different fee amounts
 - Hgraph calculates transaction fees collected by Hedera since genesis

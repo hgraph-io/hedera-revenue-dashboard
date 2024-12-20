@@ -36,12 +36,16 @@ export default function main(state) {
       state.deposits[period] = {
         node: Math.floor(data.node.aggregate.sum.total / 1e8),
         staking: Math.floor(data.staking.aggregate.sum.total / 1e8),
+        node_reward: Math.floor(data.node_reward.aggregate.sum.total / 1e8),
         treasury: Math.floor(data.treasury.aggregate.sum.total / 1e8),
         not_atma_node: Math.floor(
           (data.node.aggregate.sum.total - data.atma_node.aggregate.sum.total) / 1e8
         ),
         not_atma_staking: Math.floor(
           (data.staking.aggregate.sum.total - data.atma_staking.aggregate.sum.total) / 1e8
+        ),
+        not_atma_node_reward: Math.floor(
+          (data.node_reward.aggregate.sum.total - data.atma_node_reward.aggregate.sum.total) / 1e8
         ),
         not_atma_treasury: Math.floor(
           (data.treasury.aggregate.sum.total - data.atma_treasury.aggregate.sum.total) / 1e8
