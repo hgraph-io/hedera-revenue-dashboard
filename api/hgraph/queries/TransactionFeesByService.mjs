@@ -1,5 +1,5 @@
 //
-// https://github.com/hashgraph/hedera-mirror-node/blob/21c89d5d09b650e7d554afb72f4031b179d54cb1/hedera-mirror-rest/model/transactionType.js
+// https://github.com/hashgraph/hedera-mirror-node/blob/main/hedera-mirror-rest/model/transactionType.js
 const protoToName = {
   7: 'CONTRACTCALL',
   8: 'CONTRACTCREATEINSTANCE',
@@ -46,6 +46,14 @@ const protoToName = {
   50: 'ETHEREUMTRANSACTION',
   51: 'NODESTAKEUPDATE',
   52: 'PRNG',
+  53: 'TOKENUPDATENFTS',
+  54: 'NODECREATE',
+  55: 'NODEUPDATE',
+  56: 'NODEDELETE',
+  57: 'TOKENREJECT',
+  58: 'TOKENAIRDROP',
+  59: 'TOKENCANCELAIRDROP',
+  60: 'TOKENCLAIMAIRDROP',
 }
 
 // Flip the keys and values
@@ -75,6 +83,11 @@ const hts = [
   'TOKENFEESCHEDULEUPDATE',
   'TOKENPAUSE',
   'TOKENUNPAUSE',
+  'TOKENUPDATENFTS',
+  'TOKENREJECT',
+  'TOKENAIRDROP',
+  'TOKENCANCELAIRDROP',
+  'TOKENCLAIMAIRDROP'
 ]
   .map((name) => nameToProto[name])
   .join('|')
