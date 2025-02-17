@@ -14,21 +14,37 @@ export default function main(state) {
   for (const period of ['hour', 'day', 'week', 'month', 'quarter', 'year', 'all']) {
     // Transaction fees
     hgraph.query(hgraph.TransactionFees, current[period]).then((data) => {
+      const conversionRates = data.conversion_rates;
+
+      const allSummed = sumHbarEntries(data.all);
+      const atmaSummed = sumHbarEntries(data.atma);
+
+      const usdAll = calculateUSD(data.all, conversionRates);
+      const usdAtma = calculateUSD(data.atma, conversionRates);
+
       state[period] = {
-        ...state[period], // previous period might be already set
-        all: Math.floor(data.all.aggregate.sum.total / 1e8),
-        not_atma: Math.floor(
-          (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8
-        ),
+        ...state[period],
+        all: Math.floor(allSummed),
+        not_atma: Math.floor(allSummed - atmaSummed),
+        usd_all: Math.floor(usdAll),
+        usd_not_atma: Math.floor(usdAll - usdAtma),
       }
     })
     // Last period transaction fees
     hgraph.query(hgraph.TransactionFees, previous[period]).then((data) => {
+      const conversionRates = data.conversion_rates;
+
+      const allSummed = sumHbarEntries(data.all);
+      const atmaSummed = sumHbarEntries(data.atma);
+
+      const usdAll = calculateUSD(data.all, conversionRates);
+      const usdAtma = calculateUSD(data.atma, conversionRates);
+
       state[period].previous = {
-        all: Math.floor(data.all.aggregate.sum.total / 1e8),
-        not_atma: Math.floor(
-          (data.all.aggregate.sum.total - data.atma.aggregate.sum.total) / 1e8
-        ),
+        all: Math.floor(allSummed),
+        not_atma: Math.floor(allSummed - atmaSummed),
+        usd_all: Math.floor(usdAll),
+        usd_not_atma: Math.floor(usdAll - usdAtma),
       }
     })
     //  Node deposits
@@ -94,4 +110,19 @@ export default function main(state) {
       }
     })
   }
+}
+
+// Helper Functions
+
+function sumHbarEntries(entries) {
+  return entries.reduce((sum, entry) => sum + entry.total / 1e8, 0);
+}
+
+function calculateUSD(entries, conversionRates) {
+  return entries.reduce((sum, entry) => {
+    const rateEntry = conversionRates.find(rate =>
+      rate.start_date === entry.start_date && rate.end_date === entry.end_date
+    );
+    return rateEntry ? sum + ((entry.total / 1e8) * (rateEntry.total / 1e5)): sum;
+  }, 0);
 }

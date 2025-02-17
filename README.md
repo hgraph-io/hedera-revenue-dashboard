@@ -64,8 +64,8 @@ _Image above: An example from a transaction as viewed on HashScan ([link](https:
 
 ### Revenue (USD)
 
-- The amount of revenue (in HBAR) shown is converted in real-time to USD.
-- All USD conversions are done at the current market rate.
+- The amount of revenue (in HBAR) shown is converted to USD.
+- Revenue in USD is calculated by converting each hour’s HBAR using the average conversion rate for that specific hour. Instead of applying today’s rate to all historical data, we multiply the HBAR collected during each hour by that hour’s average USD value and then sum the results. This approach ensures that past revenues reflect the true value of HBAR at the time they were earned.
 - As fees are collected in HBAR on the Hedera network, all calculations are done using HBAR. The displayed USD amount is strictly to provide context regarding network revenue for a given timeframe.
 
 ### Date dropdown

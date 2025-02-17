@@ -12,8 +12,10 @@ function updateUI() {
   const prefix = state.filter ? 'not_atma_' : ''
 
   const hbarElement = document.getElementById('total-hbar')
+  const usdConvertElement = document.getElementById('usd-convert')
   const changeElement = document.getElementById('change')
   const currentValue = state[period][state.filter ? 'not_atma' : 'all']
+  const currentUsdValue = state[period][state.filter ? 'usd_not_atma' : 'usd_all']
   const previousValue = state[period].previous[state.filter ? 'not_atma' : 'all']
   const change = (currentValue / previousValue - 1) * 100
 
@@ -22,7 +24,7 @@ function updateUI() {
 
   // set initial value
   hbarElement.innerText = currentValue.toLocaleString()
-
+  usdConvertElement.innerText = `$${currentUsdValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
   // update change text
   if (change) {
     changeElement.innerText = `${roundedChange}% ${change >= 0 ? '↑' : '↓'}`
