@@ -7,7 +7,7 @@ import TransactionFees from './queries/TransactionFees.mjs'
 import TransactionFeesByService from './queries/TransactionFeesByService.mjs'
 
 async function query(query, variables) {
-  const response = await fetch('https://mainnet.hedera.api.hgraph.dev/v1/graphql', {
+  const response = await fetch(`https://mainnet.hedera.api.hgraph.dev/v1/${process.env.HGRAPH_API_KEY}/graphql`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
